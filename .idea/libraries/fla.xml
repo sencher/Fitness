@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="fla" type="flex">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/fla" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/fla" recursive="false" />
+  </library>
+</component>
