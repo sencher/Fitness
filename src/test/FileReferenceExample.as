@@ -30,7 +30,7 @@ public class FileReferenceExample extends Sprite {
     }
 
     private function getTypes():Array {
-        var allTypes:Array = new Array(getImageTypeFilter(), getTextTypeFilter());
+        var allTypes:Array = [getImageTypeFilter(), getTextTypeFilter()];
         return allTypes;
     }
 

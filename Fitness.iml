@@ -2,19 +2,17 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="Fitness">
     <configurations>
-      <configuration name="Fitness" pure-as="true" main-class="Main" output-file="Fitness.swf" output-folder="$MODULE_DIR$/out/production/Fitness">
-        <dependencies target-player="11.6">
+      <configuration name="Fitness" target-platform="Desktop" pure-as="true" main-class="Main" output-file="Fitness.swf" output-folder="$MODULE_DIR$/out/production/Fitness">
+        <dependencies target-player="12.0">
           <entries>
-            <entry library-name="fla" library-level="project">
+            <entry library-id="ce0e4ea5-fbc1-480a-9e74-a1cb2998410e">
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="flex 4.6+air 3.6 sdk" />
+          <sdk name="AirSDK" />
         </dependencies>
-        <compiler-options>
-          <option name="resourceFilesMode" value="None" />
-        </compiler-options>
-        <packaging-air-desktop />
+        <compiler-options />
+        <packaging-air-desktop package-file-name="Fitness" />
         <packaging-android />
         <packaging-ios />
       </configuration>
@@ -26,9 +24,19 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="flex 4.6+air 3.6 sdk" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="AirSDK" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="fla" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="ce0e4ea5-fbc1-480a-9e74-a1cb2998410e" />
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/fla" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/fla" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>
 

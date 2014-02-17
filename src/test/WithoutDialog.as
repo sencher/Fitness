@@ -48,7 +48,7 @@ public class WithoutDialog extends Sprite {
         var file:File = File.applicationStorageDirectory;
         file = file.resolvePath("test.txt");
         var fileStream:FileStream = new FileStream();
-        fileStream.addEventListener(Event.COMPLETE, fileCompleteHandler)
+        fileStream.addEventListener(Event.COMPLETE, fileCompleteHandler);
         fileStream.openAsync(file, FileMode.READ);
 
         function fileCompleteHandler(event:Event):void {

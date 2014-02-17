@@ -24,7 +24,7 @@ public class ClientVO {
         for each (param in PARAMS_PRIORITY){
             s += this[param] + DataBase.FIELD_DELIMITER;
         }
-        s = s.slice(0, s.length-1)
+        s = s.slice(0, s.length-1);
         return s;
     }
 

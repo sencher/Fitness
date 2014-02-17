@@ -56,7 +56,7 @@ public class DataBase {
         for each (client in vector) {
             s += client.toString() + CLIENT_DELIMITER;
         }
-
+        s = s.slice(0, s.length-1);
         return s;
     }
 
