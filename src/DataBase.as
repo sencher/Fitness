@@ -11,7 +11,7 @@ import windows.InfoWindow;
 
 public class DataBase {
     private static const CLIENT_DELIMITER:String = ";";
-    public static const FIELD_DELIMITER:String = ",";
+
     private static var base:Vector.<ClientVO>;
 
     public static function addClient(client:ClientVO):Boolean {
@@ -64,10 +64,10 @@ public class DataBase {
         var file:File = File.applicationStorageDirectory;
         file = file.resolvePath(Config.DATABASE);
         var fileStream:FileStream = new FileStream();
-        fileStream.addEventListener(Event.COMPLETE, fileCompleteHandler);
+        fileStream.addEventListener(Event.COMPLETE, fileStream_completeHandler, false, 0, true);
         fileStream.openAsync(file, FileMode.UPDATE);
 
-        function fileCompleteHandler(event:Event):void {
+        function fileStream_completeHandler(event:Event):void {
             var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, File.systemCharset);
             trace(str);
             base = parse(str);
@@ -82,22 +82,12 @@ public class DataBase {
         var s:String;
         for each(s in array) {
             if (s.length) {
-                var client:ClientVO = generateClientVO(s);
+                var client:ClientVO = new ClientVO(s);
                 vector.push(client);
             }
         }
 
         return vector;
-    }
-
-    private static function generateClientVO(s:String):ClientVO {
-        var client:ClientVO = new ClientVO();
-        var array:Array = s.split(FIELD_DELIMITER);
-
-        client.firstName = array[0];
-        client.secondName = array[1];
-
-        return client;
     }
 }
 }
