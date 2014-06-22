@@ -2,7 +2,7 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="Fitness">
     <configurations>
-      <configuration name="Fitness" target-platform="Desktop" pure-as="true" main-class="Main" output-file="Fitness.swf" output-folder="$MODULE_DIR$/out/production/Fitness">
+      <configuration name="Fitness" target-platform="Desktop" pure-as="true" main-class="KeyboardTrace" output-file="Fitness.swf" output-folder="$MODULE_DIR$/out/production/Fitness">
         <dependencies target-player="12.0">
           <entries>
             <entry library-id="ce0e4ea5-fbc1-480a-9e74-a1cb2998410e">
