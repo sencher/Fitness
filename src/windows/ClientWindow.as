@@ -41,8 +41,8 @@ public class ClientWindow extends Sprite {
 
         if(DataBase.addClient(client))
             new InfoWindow("Клиент сохранен!");
-        else
-            new InfoWindow("Ошибка! Клиент уже есть в базе либо номер карты занят!");
+//        else
+//            new InfoWindow("Ошибка! Клиент уже есть в базе либо номер карты занят!");
     }
 
     private function initTextField(tf:TextField):void {

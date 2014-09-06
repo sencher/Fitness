@@ -30,6 +30,7 @@ public class DataBase {
             if (oldClient.firstName == newClient.firstName &&
                     oldClient.secondName == newClient.secondName ||
                     oldClient.cardId == newClient.cardId) {
+                new InfoWindow("Ошибка! Клиент уже есть в базе либо номер карты занят! " + oldClient.toString(true));
                 return true;
             }
         }

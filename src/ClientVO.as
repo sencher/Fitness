@@ -41,12 +41,12 @@ package {
             }
         }
 
-        public function toString():String {
+        public function toString(withNames:Boolean = false):String {
 //        return firstName + DataBase.FIELD_DELIMITER + secondName;
             var s:String = "";
 
             for each (param in PARAMS_PRIORITY) {
-                s += this[param] + FIELD_DELIMITER;
+                s += withNames ? param + ":" + this[param] + FIELD_DELIMITER + " " : this[param] + FIELD_DELIMITER;
             }
             s = s.slice(0, s.length - 1);
             return s;
