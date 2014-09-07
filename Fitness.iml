@@ -38,6 +38,7 @@
         <jarDirectory url="file://$MODULE_DIR$/fla" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="design" level="project" />
   </component>
 </module>
 

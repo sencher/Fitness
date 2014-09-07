@@ -24,5 +24,13 @@ public class Utils {
         }
         return mc;
     }
+
+    public static function loadDate(ms:Number):Date {
+        var d:Date = new Date();
+        d.setTime(ms);
+        trace(d);
+        return d;
+    }
+
 }
 }

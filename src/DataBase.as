@@ -12,7 +12,7 @@ import windows.InfoWindow;
 public class DataBase {
     private static const CLIENT_DELIMITER:String = ";";
 
-    private static var base:Vector.<ClientVO>;
+    private static var base:Vector.<ClientVO> = new Vector.<ClientVO>();
 
     public static function addClient(client:ClientVO):Boolean {
         if (!findDuplicates(client)) {
@@ -30,7 +30,7 @@ public class DataBase {
             if (oldClient.firstName == newClient.firstName &&
                     oldClient.secondName == newClient.secondName ||
                     oldClient.cardId == newClient.cardId) {
-                new InfoWindow("Ошибка! Клиент уже есть в базе либо номер карты занят! " + oldClient.toString(true));
+                new InfoWindow("Ошибка! Клиент уже есть в базе либо номер карты занят! " + oldClient.toStringFull());
                 return true;
             }
         }

@@ -4,8 +4,13 @@
 package {
     import flash.display.Bitmap;
 
+    import utils.Utils;
+
     public class ClientVO {
-        private const PARAMS_PRIORITY:Array = ['cardId', 'firstName', 'secondName'];
+        private const BIRTH:String = "birth";
+        private const PARAMS_PRIORITY:Array = ['cardId', 'firstName', 'secondName', 'thirdName', BIRTH, 'address',
+            'phone', 'emergencyPhone', 'email', 'referral'];
+
         public static const FIELD_DELIMITER:String = ",";
 
         public var cardId:uint;
@@ -20,6 +25,7 @@ package {
         public var phone:String;
         public var emergencyPhone:String;
         public var email:String;
+        public var referral:String;
 
         public var abonement:AbonementVO;
 
@@ -36,17 +42,40 @@ package {
                 var array:Array = params.split(FIELD_DELIMITER);
 
                 for each (param in PARAMS_PRIORITY) {
-                    this[param] = array.shift();
+                    var nextParam:* = array.shift();
+
+                    if(nextParam) {
+                        if(param == BIRTH) {
+                            this[param] = Utils.loadDate(nextParam);
+                            continue;
+                        }
+                        this[param] = nextParam;
+                    }
                 }
             }
         }
 
-        public function toString(withNames:Boolean = false):String {
-//        return firstName + DataBase.FIELD_DELIMITER + secondName;
+        public function toString():String {
             var s:String = "";
 
             for each (param in PARAMS_PRIORITY) {
-                s += withNames ? param + ":" + this[param] + FIELD_DELIMITER + " " : this[param] + FIELD_DELIMITER;
+                if(param == BIRTH){
+                    s += birth.getTime();
+                    continue;
+                }
+
+                if(this[param]) s += this[param];
+                s += FIELD_DELIMITER;
+            }
+            s = s.slice(0, s.length - 1);
+            return s;
+        }
+
+        public function toStringFull():String{
+            var s:String = "";
+
+            for each (param in PARAMS_PRIORITY) {
+                s += param + ":" + this[param] + FIELD_DELIMITER + " ";
             }
             s = s.slice(0, s.length - 1);
             return s;

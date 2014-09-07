@@ -1,58 +1,74 @@
-/**
- * Created by Пользователь on 16.02.14.
- */
 package windows {
-import flash.display.Sprite;
-import flash.events.MouseEvent;
-import flash.text.TextField;
-import flash.text.TextFieldType;
+    import flash.display.MovieClip;
+    import flash.display.Sprite;
+    import flash.events.MouseEvent;
+    import flash.text.TextField;
 
-import utils.Utils;
+    public class ClientWindow extends Sprite {
+    private var view:MovieClip = new client_view();
+    private var firstName:TextField = view.firstName;
+    private var secondName:TextField = view.secondName;
+    private var thirdName:TextField = view.thirdName;
 
-public class ClientWindow extends Sprite {
-    private var cardIdTf:TextField = new TextField();
-    private var firstNameTf:TextField = new TextField();
-    private var secondNameTf:TextField = new TextField();
-    private var _edit:Boolean;
-    private var counter:int;
-    private const STEP:int = 50;
+    private var cardId:TextField = view.cardId;
+    private var birthD:TextField = view.birthD;
+    private var birthM:TextField = view.birthM;
+    private var birthY:TextField = view.birthY;
+    private var address:TextField = view.address;
+    private var phone:TextField = view.phone;
+    private var emergencyPhone:TextField = view.emergencyPhone;
+    private var email:TextField = view.email;
+    private var referral:TextField = view.referral;
 
     public function ClientWindow(edit:Boolean = false) {
-        _edit = edit;
-        initTextField(cardIdTf);
-        initTextField(firstNameTf);
-        initTextField(secondNameTf);
-        var saveButton:Sprite = Utils.createButton(0xFF0000,50,50,"Save");
-        saveButton.addEventListener(MouseEvent.CLICK, onSave);
-        saveButton.x = 450;
-        addChild(saveButton);
+        addChild(view);
+        view.save.addEventListener(MouseEvent.CLICK, onSave);
     }
 
     private function onSave(event:MouseEvent):void {
         var client:ClientVO = new ClientVO();
-        client.firstName = firstNameTf.text;
-        client.secondName = secondNameTf.text;
-        client.cardId = uint(cardIdTf.text);
+        client.firstName = firstName.text;
+        client.secondName = secondName.text;
+        client.thirdName = thirdName.text;
+
+        client.cardId = uint(cardId.text);
+        fillBirthday(client);
+        client.address = address.text;
+        client.phone = phone.text;
+        client.emergencyPhone = emergencyPhone.text;
+        client.email = email.text;
+        client.referral = referral.text;
 
         if(!client.valid()) {
             new InfoWindow("Не заполнены все поля!");
             return;
         }
 
-        if(DataBase.addClient(client))
+        if(DataBase.addClient(client)){
             new InfoWindow("Клиент сохранен!");
-//        else
-//            new InfoWindow("Ошибка! Клиент уже есть в базе либо номер карты занят!");
+            return;
+        }
+
+        DataBase.save();
     }
 
-    private function initTextField(tf:TextField):void {
-        tf.border = true;
-        tf.text = tf.name;
-        tf.width = 300;
-        tf.height = 30;
-        tf.y = counter++ * STEP;
-        if (_edit) tf.type = TextFieldType.INPUT;
-        addChild(tf);
+    private function fillBirthday(client:ClientVO):Boolean {
+        var d:uint = uint(birthD.text);
+        var m:uint = uint(birthM.text);
+        var y:uint = uint(birthY.text);
+
+        if(y < 20)
+            y += 2000;
+        else if(y > 21 && y < 100)
+            y += 1900;
+
+        if ( d > 0 && d < 32 && m > 0 && m < 13 && y > 1900 && y < 2010 ){
+            client.birth = new Date(y, m-1, d);
+            return true;
+        }else{
+            new InfoWindow("Формат дня рожденья : 31 12 85");
+            return false;
+        }
     }
 }
 }
