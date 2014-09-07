@@ -7,9 +7,9 @@ package {
     import utils.Utils;
 
     public class ClientVO {
-        private const BIRTH:String = "birth";
+        public static const BIRTH:String = "birth";
         private const PARAMS_PRIORITY:Array = ['cardId', 'firstName', 'secondName', 'thirdName', BIRTH, 'address',
-            'phone', 'emergencyPhone', 'email', 'referral'];
+            'phone', 'emergencyPhone', 'email', 'referral', 'problems'];
 
         public static const FIELD_DELIMITER:String = ",";
 
@@ -26,6 +26,7 @@ package {
         public var emergencyPhone:String;
         public var email:String;
         public var referral:String;
+        public var problems:String;
 
         public var abonement:AbonementVO;
 
@@ -59,13 +60,14 @@ package {
             var s:String = "";
 
             for each (param in PARAMS_PRIORITY) {
-                if(param == BIRTH){
-                    s += birth.getTime();
-                    continue;
+                if(this[param]){
+                    if(this[param] is Date){
+                        s += this[param].getTime();
+                    }else{
+                        s += this[param];
+                    }
+                    s += FIELD_DELIMITER;
                 }
-
-                if(this[param]) s += this[param];
-                s += FIELD_DELIMITER;
             }
             s = s.slice(0, s.length - 1);
             return s;

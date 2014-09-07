@@ -43,7 +43,7 @@ public class DataBase {
             return;
         }
         var file:File = File.applicationStorageDirectory;
-        file = file.resolvePath(Config.DATABASE);
+        file = file.resolvePath(Config.CLIENTS);
         var fileStream:FileStream = new FileStream();
         fileStream.open(file, FileMode.WRITE);
         fileStream.writeUTFBytes(generateSave(base));
@@ -63,7 +63,7 @@ public class DataBase {
 
     public static function load():void {
         var file:File = File.applicationStorageDirectory;
-        file = file.resolvePath(Config.DATABASE);
+        file = file.resolvePath(Config.CLIENTS);
         var fileStream:FileStream = new FileStream();
         fileStream.addEventListener(Event.COMPLETE, fileStream_completeHandler, false, 0, true);
         fileStream.openAsync(file, FileMode.UPDATE);

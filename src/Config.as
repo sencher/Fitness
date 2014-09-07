@@ -3,6 +3,7 @@
  */
 package {
 public class Config {
-    public static const DATABASE:String = "base.txt";
+    public static const CLIENTS:String = "clients.txt";
+    public static const ABONEMENTS:String = "abonements.txt";
 }
 }
