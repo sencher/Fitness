@@ -11,6 +11,11 @@ package windows {
             view = new viewClass();
             addChild(view);
         }
+
+        public function init():void{
+
+        }
+
         public function close():void{
             this.parent.removeChild(this);
         }

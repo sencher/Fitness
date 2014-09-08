@@ -12,7 +12,7 @@ import windows.InfoPopup;
 public class DataBase {
     private static const CLIENT_DELIMITER:String = ";";
 
-    private static var base:Vector.<ClientVO> = new Vector.<ClientVO>();
+    public static var base:Vector.<ClientVO> = new Vector.<ClientVO>();
 
     public static function addClient(client:ClientVO):Boolean {
         if (!findDuplicates(client)) {

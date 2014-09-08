@@ -29,6 +29,7 @@ package {
         public function ShowWindow(window:BaseWindow):void {
             if (currentWindow) currentWindow.close();
             currentWindow = window;
+            currentWindow.init();
             addChild(currentWindow);
         }
 
