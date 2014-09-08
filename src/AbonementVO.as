@@ -9,10 +9,10 @@ package {
         public var visits:Vector.<Date> = new <Date>[];
 
         public function AbonementVO(ab_start, ab_end, freeze_start, freeze_end) {
-            start = Utils.CollectDate(ab_start);
-            end = Utils.CollectDate(ab_end);
-            freezeStart = Utils.CollectDate(freeze_start);
-            freezeEnd = Utils.CollectDate(freeze_end);
+            start = Utils.collectDate(ab_start);
+            end = Utils.collectDate(ab_end);
+            freezeStart = Utils.collectDate(freeze_start);
+            freezeEnd = Utils.collectDate(freeze_end);
         }
 
 

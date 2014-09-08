@@ -20,7 +20,7 @@ package {
         public var secondName:String;
         public var thirdName:String;
 
-        public var birth:Date;
+        public var birth:Date = new Date();
         public var address:String;
         public var phone:String;
         public var emergencyPhone:String;
@@ -46,6 +46,7 @@ package {
                     var nextParam:* = array.shift();
 
                     if(nextParam) {
+//                        trace(param, this[param], this[param] is Date, this[param].constructor, /*this[param].prototype*/)
                         if(this[param] is Date){
                             this[param] = Utils.loadDate(nextParam);
                             continue;

@@ -1,9 +1,7 @@
 package windows {
     import components.ClientRow;
-    import components.ClientRow;
 
     import flash.display.MovieClip;
-    import flash.display.Sprite;
     import flash.events.MouseEvent;
 
     public class ListWindow extends CancellableWindow {
@@ -27,13 +25,17 @@ package windows {
             }
         }
 
-        override public function init():void {
+        override public function init(param:Object = null):void {
             var base:Vector.<ClientVO> = DataBase.base;
             var i:int;
             var row:ClientRow;
             var counter:int;
-            for each(row in rows){
-                row.update(base[counter]);
+            for (i=0; i<25;i++){
+                if(i<base.length) {
+                    rows[i].update(base[i]);
+                }else{
+                    rows[i].clear();
+                }
             }
         }
 

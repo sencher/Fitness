@@ -34,7 +34,7 @@ import flash.text.TextField;
         return d;
     }
 
-    public static function CollectDate(mc:MovieClip):Date {
+    public static function collectDate(mc:MovieClip):Date {
         var d:uint = uint(mc.day.text);
         var m:uint = uint(mc.month.text);
         var y:uint = uint(mc.year.text);
@@ -49,6 +49,12 @@ import flash.text.TextField;
         }else{
             new InfoPopup("Формат даты : 31 12 85");
             return null;
+        }
+    }
+
+    public static function copyFields(receiver:*, source:*):void{
+        for each (var field:String in receiver.fields){
+            receiver[field] = source[field];
         }
     }
 

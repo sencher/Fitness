@@ -100,3 +100,4 @@ ContryServer/config/items/energy/collections.yml
 ContryClient/assets/iframe/ad_redir.html
 pmip/*
 .rvmrc
+/out/*

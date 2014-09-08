@@ -8,58 +8,52 @@ package windows {
     import utils.Utils;
 
     public class ClientWindow extends CancellableWindow {
+        public var fields:Array = ['firstName','secondName','thirdName','cardId','address',
+        'phone','emergencyPhone','email','referral','problems','days','visits','type','lastVisit'];
 
-        private var firstName:TextField;
-        private var secondName:TextField;
-        private var thirdName:TextField;
+        public var firstName:TextField;
+        public var secondName:TextField;
+        public var thirdName:TextField;
 
-        private var cardId:TextField;
-        private var address:TextField;
-        private var phone:TextField;
-        private var emergencyPhone:TextField;
-        private var email:TextField;
-        private var referral:TextField;
-        private var problems:TextField;
+        public var cardId:TextField;
+        public var address:TextField;
+        public var phone:TextField;
+        public var emergencyPhone:TextField;
+        public var email:TextField;
+        public var referral:TextField;
+        public var problems:TextField;
 
-        private var days:TextField;
-        private var visits:TextField;
-        private var type:TextField;
+        public var days:TextField;
+        public var visits:TextField;
+        public var type:TextField;
+        public var lastVisit:TextField;
+
+        private var client:ClientVO;
 
 
         public function ClientWindow(parent:Main, edit:Boolean = false) {
             super(parent, client_window);
-            Init();
+            Utils.copyFields(this, view);
             view.save.addEventListener(MouseEvent.CLICK, onSave);
 
             cardId.text = String(int(Math.random() * 100));
         }
 
-        private function Init():void {
-            firstName = view.firstName;
-            secondName = view.secondName;
-            thirdName = view.thirdName;
+        override public function init(param:Object = null):void {
+            client = param is ClientVO ? ClientVO(param) : new ClientVO();
 
-            cardId = view.cardId;
-            address = view.address;
-            phone = view.phone;
-            emergencyPhone = view.emergencyPhone;
-            email = view.email;
-            referral = view.referral;
-            problems = view.problems;
+            if(client.cardId){
 
-            days = view.days;
-            visits = view.visits;
-            type = view.type;
+            }
         }
 
         private function onSave(event:MouseEvent):void {
-            var client:ClientVO = new ClientVO();
             client.firstName = firstName.text;
             client.secondName = secondName.text;
             client.thirdName = thirdName.text;
 
             client.cardId = uint(cardId.text);
-            client.birth = Utils.CollectDate(view.birth);
+            client.birth = Utils.collectDate(view.birth);
             client.address = address.text;
             client.phone = phone.text;
             client.emergencyPhone = emergencyPhone.text;
