@@ -1,23 +1,43 @@
-/**
- * Created by Пользователь on 16.02.14.
- */
 package {
-import flash.display.Sprite;
-import flash.events.MouseEvent;
+    import flash.display.Sprite;
+    import flash.events.Event;
+    import flash.events.KeyboardEvent;
     import flash.text.TextField;
+    import flash.ui.Keyboard;
 
-    import utils.Utils;
+    import windows.BaseWindow;
+    import windows.ClientWindow;
+    import windows.ListWindow;
+    import windows.StartWindow;
 
-import windows.ClientWindow;
-
-[SWF(backgroundColor="0x95F0BB", width="1024", height="768")]
+    [SWF(backgroundColor="0x95F0BB", width="1024", height="768")]
 public class Main extends Sprite{
+    private var currentWindow:BaseWindow;
+    public var start:StartWindow = new StartWindow(this);
+    public var client:ClientWindow = new ClientWindow(this);
+    public var list:ListWindow = new ListWindow(this);
+
     public function Main() {
         DataBase.load();
-        addChild(new ClientWindow(true));
-
+        addChild(new bg());
+        ShowWindow(start);
         addVersion();
+        stage.addEventListener(KeyboardEvent.KEY_UP, onKey, false, 0, true);
     }
+
+    private function onKey(event:KeyboardEvent):void {
+        if(event.keyCode == Keyboard.ESCAPE){
+            ShowWindow(start);
+        }
+    }
+
+    public function ShowWindow(window:BaseWindow):void {
+        if(currentWindow) currentWindow.close();
+        currentWindow = window;
+        addChild(currentWindow);
+    }
+
+
 
     private function addVersion():void {
         var v:TextField = new TextField();

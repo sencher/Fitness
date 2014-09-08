@@ -6,7 +6,7 @@ import flash.display.MovieClip;
 import flash.display.Sprite;
 import flash.text.TextField;
 
-    import windows.InfoWindow;
+    import windows.InfoPopup;
 
     public class Utils {
     public static function createButton(color:uint, h:uint, w:uint, text:String = "Button"):Sprite {
@@ -47,7 +47,7 @@ import flash.text.TextField;
         if ( d > 0 && d < 32 && m > 0 && m < 13 && y > 1900 && y < 2500 ){
             return new Date(y, m-1, d);
         }else{
-            new InfoWindow("Формат даты : 31 12 85");
+            new InfoPopup("Формат даты : 31 12 85");
             return null;
         }
     }

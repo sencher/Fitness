@@ -46,7 +46,7 @@ package {
                     var nextParam:* = array.shift();
 
                     if(nextParam) {
-                        if(param == BIRTH) {
+                        if(this[param] is Date){
                             this[param] = Utils.loadDate(nextParam);
                             continue;
                         }
@@ -84,9 +84,14 @@ package {
         }
 
         public function valid():Boolean {
-            return firstName.length > 1 &&
-                    secondName.length > 1 &&
-                    cardId > 0;
+            return true;
+//            return firstName.length > 1 &&
+//                    secondName.length > 1 &&
+//                    cardId > 0;
+        }
+
+        public function abonementString():String {
+            return cardId + FIELD_DELIMITER + abonement;
         }
     }
 }

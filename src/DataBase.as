@@ -7,7 +7,7 @@ import flash.filesystem.File;
 import flash.filesystem.FileMode;
 import flash.filesystem.FileStream;
 
-import windows.InfoWindow;
+import windows.InfoPopup;
 
 public class DataBase {
     private static const CLIENT_DELIMITER:String = ";";
@@ -30,7 +30,7 @@ public class DataBase {
             if (oldClient.firstName == newClient.firstName &&
                     oldClient.secondName == newClient.secondName ||
                     oldClient.cardId == newClient.cardId) {
-                new InfoWindow("Ошибка! Клиент уже есть в базе либо номер карты занят! " + oldClient.toStringFull());
+                new InfoPopup("Ошибка! Клиент уже есть в базе либо номер карты занят! " + oldClient.toStringFull());
                 return true;
             }
         }
@@ -39,42 +39,81 @@ public class DataBase {
 
     public static function save():void {
         if(!base.length) {
-            new InfoWindow("Нечего сохранять");
+            new InfoPopup("Нечего сохранять");
             return;
         }
-        var file:File = File.applicationStorageDirectory;
-        file = file.resolvePath(Config.CLIENTS);
-        var fileStream:FileStream = new FileStream();
+        initFile(Config.CLIENTS);
         fileStream.open(file, FileMode.WRITE);
-        fileStream.writeUTFBytes(generateSave(base));
+        fileStream.writeUTFBytes(generateClientsSave(base));
         fileStream.close();
-        new InfoWindow("База сохранена : " + base.length + " записей");
+        new InfoPopup("База сохранена : " + base.length + " записей");
+
+        //save abonement
+        initFile(Config.ABONEMENTS);
+        fileStream = new FileStream();
+        fileStream.open(file, FileMode.WRITE);
+        fileStream.writeUTFBytes(generateAbonementsSave(base));
+        fileStream.close();
+//        new InfoWindow("База сохранена : " + base.length + " записей");
     }
 
-    private static function generateSave(vector:Vector.<ClientVO>):String {
+    private static function generateClientsSave(vector:Vector.<ClientVO>):String {
         var s:String = "";
         var client:ClientVO;
         for each (client in vector) {
-            s += client.toString() + CLIENT_DELIMITER;
+            s += client + CLIENT_DELIMITER;
         }
         s = s.slice(0, s.length-1);
         return s;
     }
 
-    public static function load():void {
-        var file:File = File.applicationStorageDirectory;
-        file = file.resolvePath(Config.CLIENTS);
-        var fileStream:FileStream = new FileStream();
-        fileStream.addEventListener(Event.COMPLETE, fileStream_completeHandler, false, 0, true);
-        fileStream.openAsync(file, FileMode.UPDATE);
-
-        function fileStream_completeHandler(event:Event):void {
-            var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, File.systemCharset);
-            trace(str);
-            base = parse(str);
-            fileStream.close();
-            new InfoWindow("База загружена : " + base.length + " записей");
+    private static function generateAbonementsSave(vector:Vector.<ClientVO>):String {
+        var s:String = "";
+        var client:ClientVO;
+        for each (client in vector) {
+            s += client.abonementString() + CLIENT_DELIMITER;
         }
+        s = s.slice(0, s.length-1);
+        return s;
+    }
+
+    private static var file:File;
+    private static var fileStream:FileStream;
+
+    public static function load():void {
+
+        initFile(Config.CLIENTS);
+        fileStream = new FileStream();
+        fileStream.addEventListener(Event.COMPLETE, clientsStream_completeHandler, false, 0, true);
+        fileStream.openAsync(file, FileMode.UPDATE);
+    }
+
+    private static function clientsStream_completeHandler(event:Event):void {
+        var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, File.systemCharset);
+        trace(str);
+        base = parse(str);
+        fileStream.removeEventListener(Event.COMPLETE, clientsStream_completeHandler);
+        fileStream.close();
+        new InfoPopup("База загружена : " + base.length + " записей");
+
+        //load abonements
+        initFile(Config.ABONEMENTS);
+        fileStream.addEventListener(Event.COMPLETE, abonementsStream_completeHandler, false, 0, true);
+        fileStream.openAsync(file, FileMode.UPDATE);
+    }
+
+    private static function initFile(path:String):void{
+        file = File.applicationStorageDirectory;
+        file = file.resolvePath(path);
+    }
+
+    private static function abonementsStream_completeHandler(event:Event):void {
+        var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, File.systemCharset);
+        trace(str);
+//                base = parse(str);
+        fileStream.removeEventListener(Event.COMPLETE, abonementsStream_completeHandler);
+        fileStream.close();
+//                new InfoWindow("База загружена : " + base.length + " записей");
     }
 
     private static function parse(fileStream:String):Vector.<ClientVO> {

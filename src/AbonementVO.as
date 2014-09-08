@@ -18,11 +18,16 @@ package {
 
         public function toString():String {
             var s:String = "";
-            s += extract(start) + extract(start);
+            s += ext(start) + ext(end) + ext(freezeStart) + ext(freezeEnd);
+            var d:Date;
+            for each (d in visits){
+                s += ext(d);
+            }
             return s;
         }
 
-        private function extract(d:Date):String {
+        private function ext(d:Date):String {
+            if(!d) return "";
             return d.getTime() + ClientVO.FIELD_DELIMITER;
         }
 
