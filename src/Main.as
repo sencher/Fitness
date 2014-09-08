@@ -1,6 +1,5 @@
 package {
     import flash.display.Sprite;
-    import flash.events.Event;
     import flash.events.KeyboardEvent;
     import flash.text.TextField;
     import flash.ui.Keyboard;
@@ -11,40 +10,40 @@ package {
     import windows.StartWindow;
 
     [SWF(backgroundColor="0x95F0BB", width="1024", height="768")]
-public class Main extends Sprite{
-    private var currentWindow:BaseWindow;
-    public var start:StartWindow = new StartWindow(this);
-    public var client:ClientWindow = new ClientWindow(this);
-    public var list:ListWindow = new ListWindow(this);
+    public class Main extends Sprite {
 
-    public function Main() {
-        DataBase.load();
-        addChild(new bg());
-        ShowWindow(start);
-        addVersion();
-        stage.addEventListener(KeyboardEvent.KEY_UP, onKey, false, 0, true);
-    }
+        public var start:StartWindow = new StartWindow(this);
+        public var client:ClientWindow = new ClientWindow(this);
+        public var list:ListWindow = new ListWindow(this);
+        private var currentWindow:BaseWindow;
 
-    private function onKey(event:KeyboardEvent):void {
-        if(event.keyCode == Keyboard.ESCAPE){
+        public function Main() {
+            DataBase.load();
+            addChild(new bg());
             ShowWindow(start);
+            addVersion();
+            stage.addEventListener(KeyboardEvent.KEY_UP, onKey, false, 0, true);
+        }
+
+
+        public function ShowWindow(window:BaseWindow):void {
+            if (currentWindow) currentWindow.close();
+            currentWindow = window;
+            addChild(currentWindow);
+        }
+
+        private function addVersion():void {
+            var v:TextField = new TextField();
+            v.text = "Version 0.1b";
+            v.x = stage.stageWidth - v.textWidth - 10;
+            v.y = stage.stageHeight - v.textHeight;
+            addChild(v);
+        }
+
+        private function onKey(event:KeyboardEvent):void {
+            if (event.keyCode == Keyboard.ESCAPE) {
+                ShowWindow(start);
+            }
         }
     }
-
-    public function ShowWindow(window:BaseWindow):void {
-        if(currentWindow) currentWindow.close();
-        currentWindow = window;
-        addChild(currentWindow);
-    }
-
-
-
-    private function addVersion():void {
-        var v:TextField = new TextField();
-        v.text = "Version 0.1b";
-        v.x = stage.stageWidth - v.textWidth - 10;
-        v.y = stage.stageHeight - v.textHeight;
-        addChild(v);
-    }
-}
 }
