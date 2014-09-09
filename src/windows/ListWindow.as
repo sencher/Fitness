@@ -1,7 +1,10 @@
 package windows {
+    import Events.ClentEvent;
+
     import components.ClientRow;
 
     import flash.display.MovieClip;
+    import flash.events.Event;
     import flash.events.MouseEvent;
 
     public class ListWindow extends CancellableWindow {
@@ -17,15 +20,15 @@ package windows {
 
         private function initRows():void {
             var i:int;
-            var row:MovieClip;
+            var row:ClientRow;
             for (i = 1; i < 26; i++){
-                row = view["r"+i];
-                rows.push(new ClientRow(row));
-                row.addEventListener(MouseEvent.CLICK, onClick, false, 0, true)
+                row = new ClientRow(view["r"+i]);
+                rows.push(row);
+                row.addEventListener(ClentEvent.SELECTED, onSelected, false, 0, true)
             }
         }
 
-        override public function init(param:Object = null):void {
+        override public function init(params:Object = null):void {
             var base:Vector.<ClientVO> = DataBase.base;
             var i:int;
             var row:ClientRow;
@@ -39,8 +42,10 @@ package windows {
             }
         }
 
-        private function onClick(event:MouseEvent):void {
+        private function onSelected(event:ClentEvent):void {
             trace(event.target.name, event.currentTarget.name);
+//            main.client.init(event.client);
+            main.ShowWindow(main.client, event.client);
         }
 
         private function onUp(event:MouseEvent):void {

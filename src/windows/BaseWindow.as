@@ -12,7 +12,7 @@ package windows {
             addChild(view);
         }
 
-        public function init(param:Object = null):void{
+        public function init(params:Object = null):void{
 
         }
 

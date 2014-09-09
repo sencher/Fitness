@@ -8,8 +8,8 @@ package {
 
     public class ClientVO {
         public static const BIRTH:String = "birth";
-        private const PARAMS_PRIORITY:Array = ['cardId', 'firstName', 'secondName', 'thirdName', BIRTH, 'address',
-            'phone', 'emergencyPhone', 'email', 'referral', 'problems'];
+        public const fields:Array = ['cardId', 'firstName', 'secondName', 'thirdName', BIRTH, 'address',
+            'phone', 'emergencyPhone', 'email', 'referral', 'problems','days','visits','type','lastVisit'];
 
         public static const FIELD_DELIMITER:String = ",";
 
@@ -27,6 +27,10 @@ package {
         public var email:String;
         public var referral:String;
         public var problems:String;
+        public var days:String;
+        public var visits:String;
+        public var type:String;
+        public var lastVisit:String;
 
         public var abonement:AbonementVO;
 
@@ -42,7 +46,7 @@ package {
                 var counter:int = 0;
                 var array:Array = params.split(FIELD_DELIMITER);
 
-                for each (param in PARAMS_PRIORITY) {
+                for each (param in fields) {
                     var nextParam:* = array.shift();
 
                     if(nextParam) {
@@ -60,7 +64,7 @@ package {
         public function toString():String {
             var s:String = "";
 
-            for each (param in PARAMS_PRIORITY) {
+            for each (param in fields) {
                 if(this[param]){
                     if(this[param] is Date){
                         s += this[param].getTime();
@@ -77,7 +81,7 @@ package {
         public function toStringFull():String{
             var s:String = "";
 
-            for each (param in PARAMS_PRIORITY) {
+            for each (param in fields) {
                 s += param + ":" + this[param] + FIELD_DELIMITER + " ";
             }
             s = s.slice(0, s.length - 1);

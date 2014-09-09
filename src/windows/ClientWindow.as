@@ -9,7 +9,7 @@ package windows {
 
     public class ClientWindow extends CancellableWindow {
         public var fields:Array = ['firstName','secondName','thirdName','cardId','address',
-        'phone','emergencyPhone','email','referral','problems','days','visits','type','lastVisit'];
+        'phone','emergencyPhone','email','referral','problems','days','visits','type','lastVisit','birth'];
 
         public var firstName:TextField;
         public var secondName:TextField;
@@ -28,6 +28,8 @@ package windows {
         public var type:TextField;
         public var lastVisit:TextField;
 
+        public var birth:MovieClip;
+
         private var client:ClientVO;
 
 
@@ -39,27 +41,29 @@ package windows {
             cardId.text = String(int(Math.random() * 100));
         }
 
-        override public function init(param:Object = null):void {
-            client = param is ClientVO ? ClientVO(param) : new ClientVO();
+        override public function init(params:Object = null):void {
+            client = params is ClientVO ? ClientVO(params) : new ClientVO();
 
             if(client.cardId){
-
+                trace(client.cardId)
+                Utils.updateTextFields(this, client);
             }
         }
 
         private function onSave(event:MouseEvent):void {
-            client.firstName = firstName.text;
-            client.secondName = secondName.text;
-            client.thirdName = thirdName.text;
-
-            client.cardId = uint(cardId.text);
+            Utils.collectTextFields(client,this);
+//            client.firstName = firstName.text;
+//            client.secondName = secondName.text;
+//            client.thirdName = thirdName.text;
+//
+//            client.cardId = uint(cardId.text);
             client.birth = Utils.collectDate(view.birth);
-            client.address = address.text;
-            client.phone = phone.text;
-            client.emergencyPhone = emergencyPhone.text;
-            client.email = email.text;
-            client.referral = referral.text;
-            client.problems = problems.text;
+//            client.address = address.text;
+//            client.phone = phone.text;
+//            client.emergencyPhone = emergencyPhone.text;
+//            client.email = email.text;
+//            client.referral = referral.text;
+//            client.problems = problems.text;
 
             client.abonement = new AbonementVO(view.ab_start, view.ab_end, view.freeze_start, view.freeze_end);
 

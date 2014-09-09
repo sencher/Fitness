@@ -2,7 +2,8 @@
  * Created by Пользователь on 17.02.14.
  */
 package utils {
-import flash.display.MovieClip;
+    import flash.display.MovieClip;
+    import flash.display.MovieClip;
 import flash.display.Sprite;
 import flash.text.TextField;
 
@@ -56,6 +57,33 @@ import flash.text.TextField;
         for each (var field:String in receiver.fields){
             receiver[field] = source[field];
         }
+    }
+
+    public static function collectTextFields(receiver:*, source:*):void{
+        for each (var field:String in receiver.fields){
+//            trace(field, source[field]);
+            if(source[field] is TextField)
+                receiver[field] = source[field].text;
+            else if(source[field] is MovieClip)
+                receiver[field] = collectDate(source[field]);
+        }
+    }
+
+    public static function updateTextFields(receiver:*, source:*):void{
+        for each (var field:String in receiver.fields){
+            if(receiver[field] is TextField)
+                receiver[field].text = source[field] || "";
+            else if(receiver[field] is MovieClip){
+                divideDate(receiver[field], source[field]);
+            }
+
+        }
+    }
+
+    private static function divideDate(dateComponent:MovieClip, date:Date):void {
+        dateComponent.day.text = date.date || "";
+        dateComponent.month.text = date.month+1 || "";
+        dateComponent.year.text = date.getFullYear() || "";
     }
 
 }

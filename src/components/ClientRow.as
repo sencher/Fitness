@@ -1,5 +1,8 @@
 package components {
+    import Events.ClentEvent;
+
     import flash.display.MovieClip;
+    import flash.events.MouseEvent;
     import flash.text.TextField;
 
     import utils.Utils;
@@ -14,10 +17,16 @@ package components {
         public var valid:MovieClip;
         public var last_visit:MovieClip;
 
+        public var client:ClientVO;
+
         public function ClientRow(mc:MovieClip) {
             view = mc;
-
+            view.addEventListener(MouseEvent.CLICK, onClick, false, 0, true);
             Utils.copyFields(this, mc);
+        }
+
+        private function onClick(event:MouseEvent):void {
+            dispatchEvent(new ClentEvent(ClentEvent.SELECTED, client));
         }
 
         public function update(client:ClientVO):void {
@@ -25,6 +34,7 @@ package components {
                 clear();
             }
             var currentDate:Date = new Date();
+            this.client = client;
 
             id.text = String(client.cardId);
             client_name.text = client.secondName + " " + client.firstName + " " + client.thirdName;

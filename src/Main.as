@@ -26,10 +26,10 @@ package {
         }
 
 
-        public function ShowWindow(window:BaseWindow):void {
+        public function ShowWindow(window:BaseWindow, params:* = null):void {
             if (currentWindow) currentWindow.close();
             currentWindow = window;
-            currentWindow.init();
+            currentWindow.init(params);
             addChild(currentWindow);
         }
 
