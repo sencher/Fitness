@@ -37,6 +37,17 @@ public class DataBase {
         return false;
     }
 
+
+    public static function getClientById(id:int):ClientVO{
+        var oldClient:ClientVO;
+        for each (oldClient in base) {
+            if (oldClient.cardId == id) {
+                return oldClient;
+            }
+        }
+        return null;
+    }
+
     public static function save():void {
         if(!base.length) {
             new InfoPopup("Нечего сохранять");
@@ -89,7 +100,7 @@ public class DataBase {
     }
 
     private static function clientsStream_completeHandler(event:Event):void {
-        var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, File.systemCharset);
+        var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, Config.ENCODING);
         trace(str);
         base = parse(str);
         fileStream.removeEventListener(Event.COMPLETE, clientsStream_completeHandler);
@@ -108,7 +119,7 @@ public class DataBase {
     }
 
     private static function abonementsStream_completeHandler(event:Event):void {
-        var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, File.systemCharset);
+        var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, Config.ENCODING);
         trace(str);
 //                base = parse(str);
         fileStream.removeEventListener(Event.COMPLETE, abonementsStream_completeHandler);

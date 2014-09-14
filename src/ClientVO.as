@@ -7,8 +7,7 @@ package {
     import utils.Utils;
 
     public class ClientVO {
-        public static const BIRTH:String = "birth";
-        public const fields:Array = ['cardId', 'firstName', 'secondName', 'thirdName', BIRTH, 'address',
+        public const fields:Array = ['cardId', 'firstName', 'secondName', 'thirdName', "birth", 'address',
             'phone', 'emergencyPhone', 'email', 'referral', 'problems','days','visits','type','lastVisit'];
 
         public static const FIELD_DELIMITER:String = ",";
@@ -20,7 +19,7 @@ package {
         public var secondName:String;
         public var thirdName:String;
 
-        public var birth:Date = new Date();
+        public var birth:Date;
         public var address:String;
         public var phone:String;
         public var emergencyPhone:String;

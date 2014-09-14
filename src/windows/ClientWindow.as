@@ -9,7 +9,9 @@ package windows {
 
     public class ClientWindow extends CancellableWindow {
         public var fields:Array = ['firstName','secondName','thirdName','cardId','address',
-        'phone','emergencyPhone','email','referral','problems','days','visits','type','lastVisit','birth'];
+        'phone','emergencyPhone','email','referral','problems','days','visits','type','lastVisit',
+        'birth','ab_start', 'ab_end', 'freeze_start', 'freeze_end', 'reg_day', 'address',
+        'last_visit'];
 
         public var firstName:TextField;
         public var secondName:TextField;
@@ -29,6 +31,12 @@ package windows {
         public var lastVisit:TextField;
 
         public var birth:MovieClip;
+        public var ab_start:MovieClip;
+        public var ab_end:MovieClip;
+        public var freeze_start:MovieClip;
+        public var freeze_end:MovieClip;
+        public var reg_day:MovieClip;
+        public var last_visit:MovieClip;
 
         private var client:ClientVO;
 
@@ -44,28 +52,18 @@ package windows {
         override public function init(params:Object = null):void {
             client = params is ClientVO ? ClientVO(params) : new ClientVO();
 
-            if(client.cardId){
+//            if(client.cardId){
                 trace(client.cardId)
                 Utils.updateTextFields(this, client);
-            }
+//            }
         }
 
         private function onSave(event:MouseEvent):void {
             Utils.collectTextFields(client,this);
-//            client.firstName = firstName.text;
-//            client.secondName = secondName.text;
-//            client.thirdName = thirdName.text;
-//
-//            client.cardId = uint(cardId.text);
-            client.birth = Utils.collectDate(view.birth);
-//            client.address = address.text;
-//            client.phone = phone.text;
-//            client.emergencyPhone = emergencyPhone.text;
-//            client.email = email.text;
-//            client.referral = referral.text;
-//            client.problems = problems.text;
-
-            client.abonement = new AbonementVO(view.ab_start, view.ab_end, view.freeze_start, view.freeze_end);
+            var abonement:AbonementVO = new AbonementVO();
+            Utils.collectTextFields(abonement,this);
+            client.abonement = abonement;
+//            client.abonement = new AbonementVO(view.ab_start, view.ab_end, view.freeze_start, view.freeze_end);
 
             if (!client.valid()) {
                 new InfoPopup("Не заполнены все поля!");
