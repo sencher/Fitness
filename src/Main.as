@@ -16,6 +16,7 @@ package {
         public var client:ClientWindow = new ClientWindow(this);
         public var list:ListWindow = new ListWindow(this);
         private var currentWindow:BaseWindow;
+        private var stringId:String = "";
 
         public function Main() {
             DataBase.load();
@@ -42,8 +43,25 @@ package {
         }
 
         private function onKey(event:KeyboardEvent):void {
-            if (event.keyCode == Keyboard.ESCAPE) {
+            var keyCode:uint = event.keyCode;
+            if (keyCode == Keyboard.ESCAPE) {
                 ShowWindow(start);
+            }else if (keyCode > 47 && keyCode < 58){
+                stringId += keyCode - 48;
+            }else if(keyCode == Keyboard.ENTER){
+                recognize(stringId);
+                stringId = "";
+            }else if(keyCode == Keyboard.F12){
+//                recognize("2410000003273");
+                recognize("2410000000050");
+            }
+        }
+
+        private function recognize(string:String):void {
+            if(string.length == 13){
+                var id:String = string.substr(9, 3);
+                var clientVO:ClientVO = DataBase.getClientById(int(id)) || new ClientVO(id);
+                ShowWindow(client, clientVO);
             }
         }
     }

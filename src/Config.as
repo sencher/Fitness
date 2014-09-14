@@ -5,5 +5,6 @@ package {
 public class Config {
     public static const CLIENTS:String = "clients.txt";
     public static const ABONEMENTS:String = "abonements.txt";
+    public static const ENCODING:String = "utf-8";
 }
 }

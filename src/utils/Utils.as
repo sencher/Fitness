@@ -60,7 +60,14 @@ import flash.text.TextField;
     }
 
     public static function collectTextFields(receiver:*, source:*):void{
+        var receiverField:*;
         for each (var field:String in receiver.fields){
+            try{
+                receiverField = receiver[field];
+            }catch (e:Error){
+//                receiverField = null;
+                continue;
+            }
 //            trace(field, source[field]);
             if(source[field] is TextField)
                 receiver[field] = source[field].text;
@@ -70,20 +77,37 @@ import flash.text.TextField;
     }
 
     public static function updateTextFields(receiver:*, source:*):void{
+        var sourceField:*;
         for each (var field:String in receiver.fields){
+            try{
+                sourceField = source[field];
+            }catch (e:Error){
+                sourceField = null;
+            }
             if(receiver[field] is TextField)
-                receiver[field].text = source[field] || "";
+                receiver[field].text = sourceField || "";
             else if(receiver[field] is MovieClip){
-                divideDate(receiver[field], source[field]);
+                if(sourceField)
+                    divideDate(receiver[field], sourceField);
+                else
+                    clearDate(receiver[field]);
             }
 
         }
     }
 
     private static function divideDate(dateComponent:MovieClip, date:Date):void {
+        if(!dateComponent || !date) return
         dateComponent.day.text = date.date || "";
         dateComponent.month.text = date.month+1 || "";
         dateComponent.year.text = date.getFullYear() || "";
+    }
+
+    private static function clearDate(dateComponent:MovieClip):void {
+        if(!dateComponent) return
+        dateComponent.day.text = "";
+        dateComponent.month.text = "";
+        dateComponent.year.text = "";
     }
 
 }

@@ -52,7 +52,7 @@ public class WithoutDialog extends Sprite {
         fileStream.openAsync(file, FileMode.READ);
 
         function fileCompleteHandler(event:Event):void {
-            var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, File.systemCharset);
+            var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, Config.ENCODING);
             tf.text = str;
             trace(str);
             fileStream.close();
