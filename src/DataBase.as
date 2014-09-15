@@ -69,7 +69,7 @@ public class DataBase {
     }
 
     private static function generateClientsSave(vector:Vector.<ClientVO>):String {
-        var s:String = "";
+        var s:String = Config.VERSION + Config.CLIENT_DELIMITER;
         var client:ClientVO;
         for each (client in vector) {
             s += client + Config.CLIENT_DELIMITER;
@@ -79,7 +79,7 @@ public class DataBase {
     }
 
     private static function generateAbonementsSave(vector:Vector.<ClientVO>):String {
-        var s:String = "";
+        var s:String = Config.VERSION + Config.CLIENT_DELIMITER;
         var client:ClientVO;
         for each (client in vector) {
             s += client.abonementString() + Config.CLIENT_DELIMITER;
@@ -130,6 +130,7 @@ public class DataBase {
 
     private static function parseAbonement(str:String):void {
         var arrayAb:Array = str.split(Config.CLIENT_DELIMITER);
+        arrayAb.shift();// ignore version tag
         var s:String;
         for each(s in arrayAb) {
             if (s.length) {
@@ -144,6 +145,7 @@ public class DataBase {
 
     private static function parse(fileStream:String):Vector.<ClientVO> {
         var array:Array = fileStream.split(Config.CLIENT_DELIMITER);
+        array.shift();// ignore version tag
         var vector:Vector.<ClientVO> = new <ClientVO>[];
         var s:String;
         for each(s in array) {

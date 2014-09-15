@@ -70,7 +70,6 @@ package utils {
 //                receiverField = null;
                     continue;
                 }
-//            trace(field, source[field]);
                 if (source[field] is TextField)
                     receiver[field] = source[field].text;
                 else if (source[field] is MovieClip)
@@ -137,11 +136,6 @@ package utils {
             } else {
                 array = params.split(Config.FIELD_DELIMITER);
             }
-//        var counter:int;
-//        while(counter < start){
-//            array.shift();
-//            counter++;
-//        }
 
             for each (param in o.fields) {
                 var nextParam:* = array.shift();

@@ -36,7 +36,7 @@ package {
 
         private function addVersion():void {
             var v:TextField = new TextField();
-            v.text = "Version 0.1b";
+            v.text = "Version " + Config.VERSION;
             v.x = stage.stageWidth - v.textWidth - 10;
             v.y = stage.stageHeight - v.textHeight;
             addChild(v);
