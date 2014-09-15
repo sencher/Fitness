@@ -3,16 +3,14 @@ package windows {
 
     import components.ClientRow;
 
-    import flash.display.MovieClip;
-    import flash.events.Event;
     import flash.events.MouseEvent;
 
     public class ListWindow extends CancellableWindow {
         private var cursor:int = 0;
         private var rows:Vector.<ClientRow> = new <ClientRow>[];
 
-        public function ListWindow(parent:Main) {
-            super(parent, list_window);
+        public function ListWindow() {
+            super(list_window);
             view.up.addEventListener(MouseEvent.CLICK, onUp);
             view.down.addEventListener(MouseEvent.CLICK, onDown);
             initRows();
@@ -44,8 +42,7 @@ package windows {
 
         private function onSelected(event:ClentEvent):void {
             trace(event.target.name, event.currentTarget.name);
-//            main.client.init(event.client);
-            main.ShowWindow(main.client, event.client);
+            wm.ShowWindow(ClientWindow, event.client);
         }
 
         private function onUp(event:MouseEvent):void {

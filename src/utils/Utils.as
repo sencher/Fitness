@@ -12,6 +12,7 @@ package utils {
     import windows.InfoPopup;
 
     public class Utils {
+        private static var wm:WindowManager = WindowManager.instance;
         public static function createButton(color:uint, h:uint, w:uint, text:String = "Button"):Sprite {
             var mc:MovieClip = new MovieClip();
             with (mc) {
@@ -50,7 +51,7 @@ package utils {
             if (d > 0 && d < 32 && m > 0 && m < 13 && y > 1900 && y < 2500) {
                 return new Date(y, m - 1, d);
             } else {
-                new InfoPopup("Формат даты : 31 12 85");
+                wm.ShowPopup("Формат даты : 31 12 85");
                 return null;
             }
         }

@@ -1,15 +1,10 @@
 package windows {
-    import flash.display.MovieClip;
-    import flash.display.Sprite;
-    import flash.events.Event;
     import flash.events.MouseEvent;
 
     public class StartWindow extends BaseWindow {
-        public static const NEW:String = "new";
-        public static const LIST:String = "list";
 
-        public function StartWindow(parent:Main) {
-            super(parent, start_window);
+        public function StartWindow() {
+            super(start_window);
 
             addChild(view);
             view.new_button.addEventListener(MouseEvent.CLICK, onNew, false, 0, true);
@@ -18,11 +13,11 @@ package windows {
         }
 
         private function onNew(event:MouseEvent):void {
-            main.ShowWindow(main.client);
+            wm.ShowWindow(ClientWindow);
         }
 
         private function onList(event:MouseEvent):void {
-            main.ShowWindow(main.list);
+            wm.ShowWindow(ListWindow);
         }
     }
 }

@@ -13,6 +13,7 @@ import flash.filesystem.FileStream;
 
 public class DataBase {
     public static var base:Vector.<ClientVO> = new Vector.<ClientVO>();
+    private static var wm:WindowManager = WindowManager.instance;
 
     public static function addClient(client:ClientVO):Boolean {
         if (!findDuplicates(client)) {
@@ -30,7 +31,7 @@ public class DataBase {
             if (oldClient.firstName == newClient.firstName &&
                     oldClient.secondName == newClient.secondName ||
                     oldClient.cardId == newClient.cardId) {
-                new InfoPopup("Ошибка! Клиент уже есть в базе либо номер карты занят! " + oldClient.toStringFull());
+                wm.ShowPopup("Ошибка! Клиент уже есть в базе либо номер карты занят! " + oldClient.toStringFull());
                 return true;
             }
         }
@@ -50,14 +51,14 @@ public class DataBase {
 
     public static function save():void {
         if(!base.length) {
-            new InfoPopup("Нечего сохранять");
+            wm.ShowPopup("Нечего сохранять");
             return;
         }
         initFile(Config.CLIENTS);
         fileStream.open(file, FileMode.WRITE);
         fileStream.writeUTFBytes(generateClientsSave(base));
         fileStream.close();
-        new InfoPopup("База сохранена : " + base.length + " записей");
+        wm.ShowPopup("База сохранена : " + base.length + " записей");
 
         //save abonement
         initFile(Config.ABONEMENTS);
@@ -105,7 +106,7 @@ public class DataBase {
         base = parse(str);
         fileStream.removeEventListener(Event.COMPLETE, clientsStream_completeHandler);
         fileStream.close();
-        new InfoPopup("База загружена : " + base.length + " записей");
+        wm.ShowPopup("База загружена : " + base.length + " записей");
 
         //load abonements
         initFile(Config.ABONEMENTS);

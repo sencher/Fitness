@@ -5,14 +5,14 @@ package windows {
     import flash.ui.Keyboard;
 
     public class CancellableWindow extends BaseWindow{
-        public function CancellableWindow(parent:Main, viewClass:Class){
-            super(parent, viewClass);
+        public function CancellableWindow(viewClass:Class){
+            super(viewClass);
             view.cancel.addEventListener(MouseEvent.CLICK, onCancel, false, 0, true);
         }
 
 
         private function onCancel(event:MouseEvent = null):void {
-            main.ShowWindow(main.start);
+            wm.ShowWindow(StartWindow);
         }
     }
 }

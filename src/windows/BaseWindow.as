@@ -3,13 +3,13 @@ package windows {
     import flash.display.Sprite;
 
     public class BaseWindow extends Sprite{
-        protected var main:Main;
         protected var view:MovieClip;
+        protected var wm:WindowManager;
 
-        function BaseWindow(parent:Main, viewClass:Class){
-            main = parent;
+        function BaseWindow(viewClass:Class){
             view = new viewClass();
             addChild(view);
+            wm = WindowManager.instance;
         }
 
         public function init(params:Object = null):void{

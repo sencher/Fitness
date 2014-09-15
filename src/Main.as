@@ -12,26 +12,16 @@ package {
     [SWF(backgroundColor="0x95F0BB", width="1024", height="768")]
     public class Main extends Sprite {
 
-        public var start:StartWindow = new StartWindow(this);
-        public var client:ClientWindow = new ClientWindow(this);
-        public var list:ListWindow = new ListWindow(this);
-        private var currentWindow:BaseWindow;
+        private var wm:WindowManager = WindowManager.instance;
         private var stringId:String = "";
 
         public function Main() {
             DataBase.load();
             addChild(new bg());
-            ShowWindow(start);
+            addChild(wm);
+            wm.ShowWindow(StartWindow);
             addVersion();
             stage.addEventListener(KeyboardEvent.KEY_UP, onKey, false, 0, true);
-        }
-
-
-        public function ShowWindow(window:BaseWindow, params:* = null):void {
-            if (currentWindow) currentWindow.close();
-            currentWindow = window;
-            currentWindow.init(params);
-            addChild(currentWindow);
         }
 
         private function addVersion():void {
@@ -45,7 +35,7 @@ package {
         private function onKey(event:KeyboardEvent):void {
             var keyCode:uint = event.keyCode;
             if (keyCode == Keyboard.ESCAPE) {
-                ShowWindow(start);
+                wm.ShowWindow(StartWindow);
             }else if (keyCode > 47 && keyCode < 58){
                 stringId += keyCode - 48;
             }else if(keyCode == Keyboard.ENTER){
@@ -62,7 +52,7 @@ package {
             if(string.length == 13){
                 var id:String = string.substr(9, 3);
                 var clientVO:ClientVO = DataBase.getClientById(int(id)) || new ClientVO(id);
-                ShowWindow(client, clientVO);
+                wm.ShowWindow(ClientWindow, clientVO);
             }
         }
     }

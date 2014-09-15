@@ -1,7 +1,5 @@
 package windows {
-    import flash.display.DisplayObject;
     import flash.display.MovieClip;
-    import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.text.TextField;
 
@@ -41,8 +39,8 @@ package windows {
         private var client:ClientVO;
 
 
-        public function ClientWindow(parent:Main, edit:Boolean = false) {
-            super(parent, client_window);
+        public function ClientWindow() {
+            super(client_window);
             Utils.copyFields(this, view);
             view.save.addEventListener(MouseEvent.CLICK, onSave);
 
@@ -60,15 +58,15 @@ package windows {
 
                 switch(client.status){
                     case ClientVO.OUTDATED:
-                        addChild(new InfoPopup("Абонемент просрочен!"));
+                        wm.ShowPopup("Абонемент просрочен!");
                         view.status.gotoAndStop(3);
                         break;
                     case ClientVO.WEEK:
-                        addChild(new InfoPopup("Осталось менее недели!"));
+                        wm.ShowPopup("Осталось менее недели!");
                         view.status.gotoAndStop(2);
                         break;
                     case ClientVO.TWO_WEEKS:
-                        addChild(new InfoPopup("Осталось менее 2 недель!"));
+                        wm.ShowPopup("Осталось менее 2 недель!");
                         view.status.gotoAndStop(2);
                         break;
                     case ClientVO.VALID:
@@ -87,12 +85,12 @@ package windows {
             Utils.collectTextFields(client.abonement,this);
 
             if (!client.valid()) {
-                new InfoPopup("Не заполнены все поля!");
+                wm.ShowPopup("Не заполнены все поля!");
                 return;
             }
 
             if (DataBase.addClient(client)) {
-                new InfoPopup("Клиент сохранен!");
+                wm.ShowPopup("Клиент сохранен!");
                 return;
             }
 
