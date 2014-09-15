@@ -6,11 +6,13 @@ package {
 
     import utils.Utils;
 
+    import windows.InfoPopup;
+
     public class ClientVO {
         public const fields:Array = ['cardId', 'firstName', 'secondName', 'thirdName', "birth", 'address',
             'phone', 'emergencyPhone', 'email', 'referral', 'problems','days','visits','type','lastVisit'];
 
-        public static const FIELD_DELIMITER:String = ",";
+
 
         public var cardId:uint;
         public var photo:Bitmap;
@@ -31,7 +33,7 @@ package {
         public var type:String;
         public var lastVisit:String;
 
-        public var abonement:AbonementVO;
+        private var _abonement:AbonementVO = new AbonementVO();
 
         public var comments:String;
         public var height:Number;
@@ -39,49 +41,28 @@ package {
 
         private var param:String;
 
+        public var status:String;
+        public static const VALID:String = "valid";
+        public static const TWO_WEEKS:String = "two_weeks";
+        public static const WEEK:String = "week";
+        public static const OUTDATED:String = "outdated";
+
 
         public function ClientVO(params:String = null) {
             if (params) {
-                var counter:int = 0;
-                var array:Array = params.split(FIELD_DELIMITER);
-
-                for each (param in fields) {
-                    var nextParam:* = array.shift();
-
-                    if(nextParam) {
-//                        trace(param, this[param], this[param] is Date, this[param].constructor, /*this[param].prototype*/)
-                        if(this[param] is Date){
-                            this[param] = Utils.loadDate(nextParam);
-                            continue;
-                        }
-                        this[param] = nextParam;
-                    }
-                }
+                Utils.deSerialize(this, params);
             }
         }
 
         public function toString():String {
-            var s:String = "";
-
-            for each (param in fields) {
-                if(this[param]){
-                    if(this[param] is Date){
-                        s += this[param].getTime();
-                    }else{
-                        s += this[param];
-                    }
-                    s += FIELD_DELIMITER;
-                }
-            }
-            s = s.slice(0, s.length - 1);
-            return s;
+            return Utils.serialize(this);
         }
 
         public function toStringFull():String{
             var s:String = "";
 
             for each (param in fields) {
-                s += param + ":" + this[param] + FIELD_DELIMITER + " ";
+                s += param + ":" + this[param] + Config.FIELD_DELIMITER + " ";
             }
             s = s.slice(0, s.length - 1);
             return s;
@@ -95,7 +76,25 @@ package {
         }
 
         public function abonementString():String {
-            return cardId + FIELD_DELIMITER + abonement;
+            return cardId + Config.FIELD_DELIMITER + _abonement;
+        }
+
+        public function get abonement():AbonementVO {
+            return _abonement;
+        }
+
+        public function set abonement(value:AbonementVO):void {
+            _abonement = value;
+            var daysLeft:int = Utils.countDays(_abonement.ab_end, new Date());
+            if( daysLeft < 0){
+                status = OUTDATED;
+            }else if( daysLeft < 7 ){
+                status = WEEK;
+            }else if( daysLeft < 15 ){
+                status = TWO_WEEKS;
+            }else{
+                status = VALID;
+            }
         }
     }
 }

@@ -38,10 +38,24 @@ package components {
 
             id.text = String(client.cardId);
             client_name.text = client.secondName + " " + client.firstName + " " + client.thirdName;
-//            days.text = client.
-//            visits.text
-//            valid.text
-//            last_visit.text
+            if(client.days) days.text = client.days;
+            if(client.visits) visits.text = client.visits;
+            Utils.divideDate(valid, client.abonement.ab_end);
+            Utils.divideDate(last_visit, client.abonement.last_visit);
+            switch (client.status){
+                case ClientVO.OUTDATED:
+                    view.status.gotoAndStop(3);
+                    break;
+                case ClientVO.WEEK:
+                case ClientVO.TWO_WEEKS:
+                    view.status.gotoAndStop(2);
+                    break;
+                case ClientVO.VALID:
+                    view.status.gotoAndStop(1);
+                    break;
+                default:
+                    break;
+            }
         }
 
         public function clear():void {

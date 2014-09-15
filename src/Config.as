@@ -6,5 +6,7 @@ public class Config {
     public static const CLIENTS:String = "clients.txt";
     public static const ABONEMENTS:String = "abonements.txt";
     public static const ENCODING:String = "utf-8";
+    public static const FIELD_DELIMITER:String = ",";
+    public static const CLIENT_DELIMITER:String = ";";
 }
 }

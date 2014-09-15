@@ -50,20 +50,41 @@ package windows {
         }
 
         override public function init(params:Object = null):void {
+            Utils.clearTextFields(this);
+            view.status.gotoAndStop(1);
             client = params is ClientVO ? ClientVO(params) : new ClientVO();
 
-//            if(client.cardId){
-                trace(client.cardId)
-                Utils.updateTextFields(this, client);
-//            }
+
+            if(params){
+                Utils.updateTextFields(this, client.abonement);
+
+                switch(client.status){
+                    case ClientVO.OUTDATED:
+                        addChild(new InfoPopup("Абонемент просрочен!"));
+                        view.status.gotoAndStop(3);
+                        break;
+                    case ClientVO.WEEK:
+                        addChild(new InfoPopup("Осталось менее недели!"));
+                        view.status.gotoAndStop(2);
+                        break;
+                    case ClientVO.TWO_WEEKS:
+                        addChild(new InfoPopup("Осталось менее 2 недель!"));
+                        view.status.gotoAndStop(2);
+                        break;
+                    case ClientVO.VALID:
+                        break;
+                    default:
+                        break;
+                }
+            }
+            trace(client.cardId);
+            Utils.updateTextFields(this, client);
+            Utils.updateTextFields(this, client.abonement);
         }
 
         private function onSave(event:MouseEvent):void {
             Utils.collectTextFields(client,this);
-            var abonement:AbonementVO = new AbonementVO();
-            Utils.collectTextFields(abonement,this);
-            client.abonement = abonement;
-//            client.abonement = new AbonementVO(view.ab_start, view.ab_end, view.freeze_start, view.freeze_end);
+            Utils.collectTextFields(client.abonement,this);
 
             if (!client.valid()) {
                 new InfoPopup("Не заполнены все поля!");

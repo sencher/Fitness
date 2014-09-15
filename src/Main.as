@@ -52,8 +52,9 @@ package {
                 recognize(stringId);
                 stringId = "";
             }else if(keyCode == Keyboard.F12){
-//                recognize("2410000003273");
                 recognize("2410000000050");
+            }else if(keyCode == Keyboard.F11){
+                recognize("2410000003273");
             }
         }
 

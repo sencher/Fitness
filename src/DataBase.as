@@ -7,11 +7,11 @@ import flash.filesystem.File;
 import flash.filesystem.FileMode;
 import flash.filesystem.FileStream;
 
-import windows.InfoPopup;
+    import utils.Utils;
+
+    import windows.InfoPopup;
 
 public class DataBase {
-    private static const CLIENT_DELIMITER:String = ";";
-
     public static var base:Vector.<ClientVO> = new Vector.<ClientVO>();
 
     public static function addClient(client:ClientVO):Boolean {
@@ -72,7 +72,7 @@ public class DataBase {
         var s:String = "";
         var client:ClientVO;
         for each (client in vector) {
-            s += client + CLIENT_DELIMITER;
+            s += client + Config.CLIENT_DELIMITER;
         }
         s = s.slice(0, s.length-1);
         return s;
@@ -82,7 +82,7 @@ public class DataBase {
         var s:String = "";
         var client:ClientVO;
         for each (client in vector) {
-            s += client.abonementString() + CLIENT_DELIMITER;
+            s += client.abonementString() + Config.CLIENT_DELIMITER;
         }
         s = s.slice(0, s.length-1);
         return s;
@@ -121,14 +121,29 @@ public class DataBase {
     private static function abonementsStream_completeHandler(event:Event):void {
         var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, Config.ENCODING);
         trace(str);
+        parseAbonement(str);
 //                base = parse(str);
         fileStream.removeEventListener(Event.COMPLETE, abonementsStream_completeHandler);
         fileStream.close();
 //                new InfoWindow("База загружена : " + base.length + " записей");
     }
 
+    private static function parseAbonement(str:String):void {
+        var arrayAb:Array = str.split(Config.CLIENT_DELIMITER);
+        var s:String;
+        for each(s in arrayAb) {
+            if (s.length) {
+                var array:Array = s.split(Config.FIELD_DELIMITER);
+                var client:ClientVO = getClientById(array.shift());
+                var ab:AbonementVO = new AbonementVO();
+                Utils.deSerialize(ab, array);
+                client.abonement = ab;
+            }
+        }
+    }
+
     private static function parse(fileStream:String):Vector.<ClientVO> {
-        var array:Array = fileStream.split(CLIENT_DELIMITER);
+        var array:Array = fileStream.split(Config.CLIENT_DELIMITER);
         var vector:Vector.<ClientVO> = new <ClientVO>[];
         var s:String;
         for each(s in array) {
