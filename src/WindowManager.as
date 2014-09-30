@@ -19,6 +19,8 @@ package {
         private var popup:InfoPopup;
 
         private var _windows:Hash = new Hash();
+        private var popupShowed:Boolean;
+        private var popupQueue:Vector.<String> = new Vector.<String>();
 
         public function WindowManager(){
             if(_instance){
@@ -53,6 +55,11 @@ package {
         }
 
         public function ShowPopup(message:String):void{
+            if(popupShowed) {
+                popupQueue.push(message);
+                return;
+            }
+
             popup = InfoPopup(_windows.getKey(InfoPopup));
             if(!popup){
                 popup = new InfoPopup();
@@ -60,6 +67,15 @@ package {
             }
             popup.init(message);
             addChild(popup);
+            popupShowed = true;
+        }
+
+        public function ClosePopup():void{
+            popupShowed = false;
+            removeChild(popup);
+            if(popupQueue.length){
+                ShowPopup(popupQueue.shift());
+            }
         }
     }
 }

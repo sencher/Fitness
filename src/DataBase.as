@@ -18,6 +18,7 @@ public class DataBase {
     public static function addClient(client:ClientVO):Boolean {
         if (!findDuplicates(client)) {
             base.push(client);
+            base.sort(compare);
             save();
             return true;
         } else {
@@ -25,17 +26,33 @@ public class DataBase {
         }
     }
 
-    private static function findDuplicates(newClient:ClientVO):Boolean {
+    public static function updateClient(client:ClientVO):void {
+        var oldClient:ClientVO;
+        for each (oldClient in base) {
+            if (oldClient.cardId == client.cardId) {
+                oldClient = client;
+                break;
+            }
+        }
+        save();
+    }
+
+    private static function compare(c1:ClientVO, c2:ClientVO):int {
+        return c1.cardId - c2.cardId;
+    }
+
+    private static function findDuplicates(newClient:ClientVO):ClientVO {
         var oldClient:ClientVO;
         for each (oldClient in base) {
             if (oldClient.firstName == newClient.firstName &&
                     oldClient.secondName == newClient.secondName ||
                     oldClient.cardId == newClient.cardId) {
-                wm.ShowPopup("Ошибка! Клиент уже есть в базе либо номер карты занят! " + oldClient.toStringFull());
-                return true;
+                wm.ShowPopup( "Ошибка! Клиент уже есть в базе либо номер карты занят!" +
+                "\n№ : " + oldClient.cardId + "\nФамилия : " + oldClient.secondName + "\nИмя : " + oldClient.firstName );
+                return oldClient;
             }
         }
-        return false;
+        return null;
     }
 
 

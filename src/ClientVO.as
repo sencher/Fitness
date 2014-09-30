@@ -85,6 +85,10 @@ package {
 
         public function set abonement(value:AbonementVO):void {
             _abonement = value;
+            updateStatus();
+        }
+
+        public function updateStatus():void{
             var daysLeft:int = Utils.countDays(_abonement.ab_end, new Date());
             if( daysLeft < 0){
                 status = OUTDATED;

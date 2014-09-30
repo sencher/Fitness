@@ -34,7 +34,7 @@ package utils {
         public static function loadDate(ms:Number):Date {
             var d:Date = new Date();
             d.setTime(ms);
-            trace(d);
+//            trace(d);
             return d;
         }
 
@@ -51,7 +51,7 @@ package utils {
             if (d > 0 && d < 32 && m > 0 && m < 13 && y > 1900 && y < 2500) {
                 return new Date(y, m - 1, d);
             } else {
-                wm.ShowPopup("Формат даты : 31 12 85");
+//                wm.ShowPopup("Формат даты : 31 12 85");
                 return null;
             }
         }

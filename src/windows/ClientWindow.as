@@ -37,23 +37,23 @@ package windows {
         public var last_visit:MovieClip;
 
         private var client:ClientVO;
+        private var newClient:Boolean;
 
 
         public function ClientWindow() {
             super(client_window);
             Utils.copyFields(this, view);
             view.save.addEventListener(MouseEvent.CLICK, onSave);
-
-            cardId.text = String(int(Math.random() * 100));
         }
 
         override public function init(params:Object = null):void {
             Utils.clearTextFields(this);
             view.status.gotoAndStop(1);
             client = params is ClientVO ? ClientVO(params) : new ClientVO();
-
+            newClient = true;
 
             if(params){
+                updateNewClientStatus(params.cardId);
                 Utils.updateTextFields(this, client.abonement);
 
                 switch(client.status){
@@ -75,26 +75,35 @@ package windows {
                         break;
                 }
             }
-            trace(client.cardId);
+            trace(client.cardId, newClient);
             Utils.updateTextFields(this, client);
             Utils.updateTextFields(this, client.abonement);
+        }
+
+        private function updateNewClientStatus(id:int):void{
+            newClient = id < 1 || !DataBase.getClientById(id);
+            trace("new",newClient);
         }
 
         private function onSave(event:MouseEvent):void {
             Utils.collectTextFields(client,this);
             Utils.collectTextFields(client.abonement,this);
+//            updateNewClientStatus(client.cardId);
+            client.updateStatus();
 
             if (!client.valid()) {
                 wm.ShowPopup("Не заполнены все поля!");
                 return;
             }
 
-            if (DataBase.addClient(client)) {
-                wm.ShowPopup("Клиент сохранен!");
-                return;
+            if(newClient){
+                if (DataBase.addClient(client)) {
+                    wm.ShowPopup("Клиент сохранен!");
+                }
+            }else{
+                wm.ShowPopup("Клиент обновлен!");
+                DataBase.updateClient(client)
             }
-
-            DataBase.save();
         }
     }
 }

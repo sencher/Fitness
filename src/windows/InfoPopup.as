@@ -17,8 +17,8 @@ package windows {
         }
 
         private function onClick(event:MouseEvent):void {
-            parent.removeChild(this);
-            view.ok.removeEventListener(MouseEvent.CLICK, onClick);
+            WindowManager(parent).ClosePopup();
+//            view.ok.removeEventListener(MouseEvent.CLICK, onClick);
         }
     }
 }

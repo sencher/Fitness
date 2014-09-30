@@ -1,5 +1,6 @@
 package {
     import flash.display.Sprite;
+    import flash.display.StageDisplayState;
     import flash.events.KeyboardEvent;
     import flash.text.TextField;
     import flash.ui.Keyboard;
@@ -16,6 +17,7 @@ package {
         private var stringId:String = "";
 
         public function Main() {
+//            stage.displayState = StageDisplayState.FULL_SCREEN;
             DataBase.load();
             addChild(new bg());
             addChild(wm);
@@ -42,15 +44,17 @@ package {
                 recognize(stringId);
                 stringId = "";
             }else if(keyCode == Keyboard.F12){
-                recognize("2410000000050");
+                recognize(String(2410000000000 + int(stringId) * 10));
+                stringId = "";
             }else if(keyCode == Keyboard.F11){
                 recognize("2410000003273");
             }
+            trace(stringId);
         }
 
         private function recognize(string:String):void {
-            if(string.length == 13){
-                var id:String = string.substr(9, 3);
+            if(string.length >= 13){
+                var id:String = string.substr( string.length - 4, 3 );
                 var clientVO:ClientVO = DataBase.getClientById(int(id)) || new ClientVO(id);
                 wm.ShowWindow(ClientWindow, clientVO);
             }
