@@ -1,7 +1,10 @@
 package windows {
     import flash.display.MovieClip;
     import flash.display.Sprite;
+    import flash.events.Event;
     import flash.events.MouseEvent;
+
+    import utils.Utils;
 
     public class InfoPopup extends Sprite {
         private var view:info_popup = new info_popup();
@@ -13,12 +16,13 @@ package windows {
         public function init(message:String):void{
             trace(message);
             view.info.text = message;
-            view.ok.addEventListener(MouseEvent.CLICK, onClick, false, 0, true);
+            Utils.initButton(view.ok, onClick);
         }
 
         private function onClick(event:MouseEvent):void {
-            WindowManager(parent).ClosePopup();
+//            WindowManager(parent).ClosePopup();
 //            view.ok.removeEventListener(MouseEvent.CLICK, onClick);
+            dispatchEvent(new Event(Event.CLOSE));
         }
     }
 }

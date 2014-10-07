@@ -59,13 +59,14 @@ package components {
         }
 
         public function clear():void {
-            id.text = client_name.text = days.text = visits.text = "Cleared";
+            id.text = client_name.text = days.text = visits.text = "";
             clearDateComponent(valid);
             clearDateComponent(last_visit);
+            client = null;
         }
 
         private function clearDateComponent(dateComponent:MovieClip):void{
-            dateComponent.day.text = dateComponent.month.text = dateComponent.year.text = "Cleared";
+            dateComponent.day.text = dateComponent.month.text = dateComponent.year.text = "";
         }
     }
 }

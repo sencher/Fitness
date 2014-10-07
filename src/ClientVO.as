@@ -10,7 +10,7 @@ package {
 
     public class ClientVO {
         public const fields:Array = ['cardId', 'firstName', 'secondName', 'thirdName', "birth", 'address',
-            'phone', 'emergencyPhone', 'email', 'referral', 'problems','days','visits','type','lastVisit'];
+            'phone', 'emergencyPhone', 'email', 'referral', 'info','days','visits','type','lastVisit'];
 
 
 
@@ -27,7 +27,7 @@ package {
         public var emergencyPhone:String;
         public var email:String;
         public var referral:String;
-        public var problems:String;
+        public var info:String;
         public var days:String;
         public var visits:String;
         public var type:String;
@@ -69,10 +69,9 @@ package {
         }
 
         public function valid():Boolean {
-            return true;
-//            return firstName.length > 1 &&
-//                    secondName.length > 1 &&
-//                    cardId > 0;
+            return firstName.length > 1 &&
+                    secondName.length > 1 &&
+                    cardId > 0;
         }
 
         public function abonementString():String {
