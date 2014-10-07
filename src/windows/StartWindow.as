@@ -1,5 +1,8 @@
 package windows {
+    import flash.desktop.NativeApplication;
     import flash.events.MouseEvent;
+
+    import utils.Utils;
 
     public class StartWindow extends BaseWindow {
 
@@ -7,9 +10,9 @@ package windows {
             super(start_window);
 
             addChild(view);
-            view.new_button.addEventListener(MouseEvent.CLICK, onNew, false, 0, true);
-            view.list_button.addEventListener(MouseEvent.CLICK, onList, false, 0, true);
-
+            Utils.initButton(view.new_button, onNew);
+            Utils.initButton(view.list_button, onList);
+            Utils.initButton(view.exit_button, onExit);
         }
 
         private function onNew(event:MouseEvent):void {
@@ -18,6 +21,10 @@ package windows {
 
         private function onList(event:MouseEvent):void {
             wm.ShowWindow(ListWindow);
+        }
+
+        private function onExit(event:MouseEvent):void {
+            NativeApplication.nativeApplication.exit();
         }
     }
 }

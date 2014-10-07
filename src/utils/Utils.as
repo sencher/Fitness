@@ -5,6 +5,7 @@ package utils {
     import flash.display.MovieClip;
     import flash.display.MovieClip;
     import flash.display.Sprite;
+    import flash.events.MouseEvent;
     import flash.text.TextField;
 
     import windows.BaseWindow;
@@ -111,6 +112,7 @@ package utils {
         }
 
         private static var param:String;
+        private static const DATE_SPIKE:int = 50000;
 
 
         public static function serialize(o:*):String {
@@ -142,7 +144,7 @@ package utils {
                 var nextParam:* = array.shift();
 
                 if (nextParam) {
-                    if (nextParam > 50000) {
+                    if (nextParam > DATE_SPIKE || nextParam < -DATE_SPIKE) {
                         o[param] = Utils.loadDate(nextParam);
                         continue;
                     }
@@ -173,6 +175,11 @@ package utils {
             var oneDay:int = 24*60*60*1000; // hours*minutes*seconds*milliseconds
             var diffDays:int = Math.round((startDate.getTime() - endDate.getTime())/(oneDay));
             return diffDays;
+        }
+
+        public static function initButton(view:MovieClip, callback:Function):void{
+            view.addEventListener(MouseEvent.CLICK, callback, false, 0, true);
+            view.buttonMode = true;
         }
     }
 }

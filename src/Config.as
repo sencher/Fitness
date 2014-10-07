@@ -8,6 +8,7 @@ public class Config {
     public static const ENCODING:String = "utf-8";
     public static const FIELD_DELIMITER:String = ",";
     public static const CLIENT_DELIMITER:String = ";";
-    public static const VERSION:String = "0.1b";
+    public static const VERSION:String = "0.2";
+    public static const DEBUG:Boolean = false;
 }
 }

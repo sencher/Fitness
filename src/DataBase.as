@@ -1,9 +1,9 @@
-/**
- * Created by Пользователь on 17.02.14.
- */
 package {
 import flash.events.Event;
-import flash.filesystem.File;
+    import flash.events.IOErrorEvent;
+    import flash.events.OutputProgressEvent;
+    import flash.events.ProgressEvent;
+    import flash.filesystem.File;
 import flash.filesystem.FileMode;
 import flash.filesystem.FileStream;
 
@@ -55,7 +55,6 @@ public class DataBase {
         return null;
     }
 
-
     public static function getClientById(id:int):ClientVO{
         var oldClient:ClientVO;
         for each (oldClient in base) {
@@ -75,7 +74,6 @@ public class DataBase {
         fileStream.open(file, FileMode.WRITE);
         fileStream.writeUTFBytes(generateClientsSave(base));
         fileStream.close();
-        wm.ShowPopup("База сохранена : " + base.length + " записей");
 
         //save abonement
         initFile(Config.ABONEMENTS);
@@ -83,7 +81,7 @@ public class DataBase {
         fileStream.open(file, FileMode.WRITE);
         fileStream.writeUTFBytes(generateAbonementsSave(base));
         fileStream.close();
-//        new InfoWindow("База сохранена : " + base.length + " записей");
+        wm.ShowPopup("База сохранена : " + base.length + " записей");
     }
 
     private static function generateClientsSave(vector:Vector.<ClientVO>):String {
@@ -113,37 +111,49 @@ public class DataBase {
 
         initFile(Config.CLIENTS);
         fileStream = new FileStream();
-        fileStream.addEventListener(Event.COMPLETE, clientsStream_completeHandler, false, 0, true);
+        fileStream.addEventListener(ProgressEvent.PROGRESS, clientsStream_progressHandler);
+        fileStream.addEventListener(OutputProgressEvent.OUTPUT_PROGRESS, outputProgressHandler);
+        fileStream.addEventListener(IOErrorEvent.IO_ERROR, errorHandler);
         fileStream.openAsync(file, FileMode.UPDATE);
     }
 
-    private static function clientsStream_completeHandler(event:Event):void {
+    private static function outputProgressHandler(event:OutputProgressEvent):void {
+        wm.ShowPopup("output progress" + event.bytesPending + " " + event.bytesTotal);
+    }
+
+    private static function errorHandler(event:IOErrorEvent):void {
+        wm.ShowPopup("IO_ERROR : " + event.errorID + " " + event.text);
+    }
+
+    private static function clientsStream_progressHandler(event:ProgressEvent):void {
+        if(event.bytesLoaded < event.bytesTotal) return;
+//        wm.ShowPopup(event.toString());
         var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, Config.ENCODING);
         trace(str);
         base = parse(str);
-        fileStream.removeEventListener(Event.COMPLETE, clientsStream_completeHandler);
+        fileStream.removeEventListener(ProgressEvent.PROGRESS, clientsStream_progressHandler);
         fileStream.close();
         wm.ShowPopup("База загружена : " + base.length + " записей");
 
         //load abonements
         initFile(Config.ABONEMENTS);
-        fileStream.addEventListener(Event.COMPLETE, abonementsStream_completeHandler, false, 0, true);
+        fileStream.addEventListener(ProgressEvent.PROGRESS, abonementsStream_completeHandler);
         fileStream.openAsync(file, FileMode.UPDATE);
     }
 
     private static function initFile(path:String):void{
         file = File.applicationStorageDirectory;
         file = file.resolvePath(path);
+//        wm.ShowPopup(file.nativePath);
     }
 
-    private static function abonementsStream_completeHandler(event:Event):void {
+    private static function abonementsStream_completeHandler(event:ProgressEvent):void {
+        if(event.bytesLoaded < event.bytesTotal) return;
         var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, Config.ENCODING);
         trace(str);
         parseAbonement(str);
-//                base = parse(str);
-        fileStream.removeEventListener(Event.COMPLETE, abonementsStream_completeHandler);
+        fileStream.removeEventListener(ProgressEvent.PROGRESS, abonementsStream_completeHandler);
         fileStream.close();
-//                new InfoWindow("База загружена : " + base.length + " записей");
     }
 
     private static function parseAbonement(str:String):void {
