@@ -2,7 +2,6 @@
  * Created by Пользователь on 17.02.14.
  */
 package utils {
-<<<<<<< HEAD
 import core.Config;
 
 import flash.display.MovieClip;
@@ -11,37 +10,6 @@ import flash.events.MouseEvent;
 import flash.text.TextField;
 
 import managers.WindowManager;
-=======
-    import flash.display.MovieClip;
-    import flash.display.MovieClip;
-    import flash.display.Sprite;
-    import flash.events.MouseEvent;
-    import flash.text.TextField;
-
-    import windows.BaseWindow;
-
-    import windows.InfoPopup;
-
-    public class Utils {
-        private static var wm:WindowManager = WindowManager.instance;
-        public static function createButton(color:uint, h:uint, w:uint, text:String = "Button"):Sprite {
-            var mc:MovieClip = new MovieClip();
-            with (mc) {
-                graphics.beginFill(color, 0.7);
-                graphics.drawRect(0, 0, w, h);
-                graphics.endFill();
-
-                var label:TextField = new TextField();
-                label.text = text;
-                label.selectable = false;
-                addChild(label);
-
-                buttonMode = true;
-                mouseChildren = false;
-            }
-            return mc;
-        }
->>>>>>> a895a889f8264d94d4a99ed7d7c750b120e0bdb8
 
 public class Utils {
     private static var wm:WindowManager = WindowManager.instance;
@@ -79,6 +47,10 @@ public class Utils {
         var m:uint = uint(mc.month.text);
         var y:uint = uint(mc.year.text);
 
+        if (y < 1){
+            var date:Date = new Date();
+            y = date.fullYear;
+        }
         if (y < 20)
             y += 2000;
         else if (y > 21 && y < 100)
@@ -147,20 +119,15 @@ public class Utils {
         dateComponent.year.text = date.getFullYear() || "";
     }
 
-    private static function clearDate(dateComponent:MovieClip):void {
+    public static function clearDate(dateComponent:MovieClip):void {
         if (!dateComponent) return
         dateComponent.day.text = "";
         dateComponent.month.text = "";
         dateComponent.year.text = "";
     }
 
-<<<<<<< HEAD
     private static var param:String;
     private static const DATE_SPIKE:int = 50000;
-=======
-        private static var param:String;
-        private static const DATE_SPIKE:int = 50000;
->>>>>>> a895a889f8264d94d4a99ed7d7c750b120e0bdb8
 
 
     public static function serialize(o:*):String {
@@ -215,7 +182,6 @@ public class Utils {
                     continue;
                 }
 
-<<<<<<< HEAD
                 else */
                 if (nextParam.indexOf("GMT")>-1) {
                     nextParam = "Ошибка, внесите заново из анкеты";
@@ -223,11 +189,6 @@ public class Utils {
                     tryMakeDate = unPackDate(nextParam);
                     if (tryMakeDate) {
                         o[param] = tryMakeDate;
-=======
-                if (nextParam) {
-                    if (nextParam > DATE_SPIKE || nextParam < -DATE_SPIKE) {
-                        o[param] = Utils.loadDate(nextParam);
->>>>>>> a895a889f8264d94d4a99ed7d7c750b120e0bdb8
                         continue;
                     }
                     o[param] = nextParam;
@@ -271,7 +232,6 @@ public class Utils {
         for (i = 0; i < array.length; i++) {
             array[i] = int(array[i]);
         }
-<<<<<<< HEAD
         return array;
     }
 
@@ -282,13 +242,6 @@ public class Utils {
             return time.substr(0, 1) + time.substr(2, 2);
         else
             return time.substr(0, 1) + time.substr(2, 1);
-=======
-
-        public static function initButton(view:MovieClip, callback:Function):void{
-            view.addEventListener(MouseEvent.CLICK, callback, false, 0, true);
-            view.buttonMode = true;
-        }
->>>>>>> a895a889f8264d94d4a99ed7d7c750b120e0bdb8
     }
 
     public static function unPackTime(time:String):String {
@@ -306,6 +259,21 @@ public class Utils {
 
     public static function isDateBetween(s:Date, d1:Date, d2:Date):Boolean {
         return s >= d1 && s <= d2;
+    }
+
+    public static function dateToString(current:Date):String {
+        return current.date + " / " + (current.month + 1) + " / " + current.fullYear;
+    }
+
+    public static function mergeObjects(main:Object, additional:Object):Object {
+        if(!main) return additional;
+        var param:*;
+        for (param in additional){
+            try{
+                main[param] = additional[param];
+            }catch (e:Error){}
+        }
+        return main;
     }
 }
 }

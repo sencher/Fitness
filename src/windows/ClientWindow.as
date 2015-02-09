@@ -3,10 +3,11 @@ import Events.CalendarEvent;
 
 import core.DataBase;
 
-<<<<<<< HEAD
 import flash.display.MovieClip;
+import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
 import flash.text.TextField;
+import flash.ui.Keyboard;
 
 import managers.VisitManager;
 
@@ -15,10 +16,19 @@ import utils.Utils;
 import vo.ClientVO;
 
 public class ClientWindow extends BackableWindow {
-    public var fields:Array = ['firstName', 'secondName', 'thirdName', 'cardId', 'address',
+    public const fields:Array = ['firstName', 'secondName', 'thirdName', 'cardId', 'address',
         'phone', 'emergencyPhone', 'email', 'referral', 'info', 'client_stage', 'visits', 'type',
         'birth', 'ab_start', 'ab_end', 'freeze_start', 'freeze_end', 'reg_day', 'address',
-        'last_visit'];
+        'last_visit', 'pay_day', 'pay_value'];
+
+    private const tab:Array = ['cardId', 'secondName', 'firstName', 'thirdName','birth', 'address', 'phone',
+        'emergencyPhone', 'email', 'referral', 'info', 'type', 'ab_start', 'ab_end', 'freeze_start', 'freeze_end',
+        'reg_day', 'pay_day', 'pay_value', 'last_visit', 'visit_range_start', 'visit_range_end'];
+
+    private const dateComponent:Array = ['day', 'month', 'year'];
+    private var _mainFocus:int = -1;
+    private var subFocus:int = -1;
+    private var _selection:*;
 
     public var firstName:TextField;
     public var secondName:TextField;
@@ -43,6 +53,8 @@ public class ClientWindow extends BackableWindow {
     public var freeze_end:MovieClip;
     public var reg_day:MovieClip;
     public var last_visit:MovieClip;
+    public var pay_day:MovieClip;
+    public var pay_value:TextField;
 
     private var client:ClientVO;
     private var newClient:Boolean;
@@ -55,6 +67,8 @@ public class ClientWindow extends BackableWindow {
         Utils.initButton(view.save, onSave);
         Utils.initButton(view.main_menu, onMenu);
         Utils.initButton(view.visit_range_button, onRange);
+        Utils.initButton(view.payed, onPayed);
+        Utils.initButton(view.status, status_mouseUpHandler);
         calendar.x = 684;
         calendar.y = 434;
         calendar.scaleX = calendar.scaleY = 1.23;
@@ -87,6 +101,10 @@ public class ClientWindow extends BackableWindow {
 //        }
     }
 
+    private function status_mouseUpHandler(event:MouseEvent):void {
+        updateStatusView(true);
+    }
+
     private function calendarRedraw(event:CalendarEvent):void {
         updateVisitsThisMonth();
     }
@@ -97,24 +115,98 @@ public class ClientWindow extends BackableWindow {
         view.visits_range.text = calculateThisMonthVisits(r1, r2);
     }
 
+    private function onPayed(event:MouseEvent = null):void {
+        Utils.clearDate(pay_day);
+        pay_value.text = '';
+    }
+
+    override protected function unInit():void {
+        stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKey);
+        stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseDown);
+    }
 
     override public function init(params:Object = null):void {
+        stage.addEventListener(KeyboardEvent.KEY_DOWN, onKey);
+        stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
         Utils.clearTextFields(this);
+        view.visits_month.text = '';
+
         client = params is ClientVO ? ClientVO(params) : new ClientVO();
         newClient = true;
 
         if (params) {
             updateNewClientStatus(params.cardId);
-            updateStatusView(client.scanned);
         }
 
-        if (!newClient && client.scanned) VisitManager.instance.addVisit(client.cardId);
+        updateStatusView(client.scanned);
+
+        if (!newClient && client.scanned) {
+            VisitManager.instance.addVisit(client.cardId);
+        }
         Utils.updateTextFields(this, client);
         Utils.updateTextFields(this, client.abonement);
         VisitManager.instance.getClientVisits(client);
         Utils.updateTextFields(this, client.visits);
         calendar.updateColors(client.visits.visitDates);
         updateVisitsThisMonth();
+        resetFocus();
+    }
+
+    private function resetFocus():void {
+        _selection = null;
+        subFocus = -1;
+        _mainFocus = -1;
+        nextFocus();
+    }
+
+    private function onMouseDown(event:MouseEvent):void {
+        var t:* = event.target;
+        if(t is TextField && t.type == 'input'){
+            updateFocus(t);
+        }
+    }
+
+    private function updateFocus(tf:TextField):void {
+        if(isDateComponent(tf)){
+            subFocus = dateComponent.indexOf(tf.name);
+            _mainFocus = tab.indexOf(tf.parent.name);
+        }else{
+            subFocus = -1;
+            _mainFocus = tab.indexOf(tf.name);
+        }
+        _selection = tf;
+    }
+
+    private function isDateComponent(obj:*):Boolean{
+        return obj && dateComponent.indexOf(obj.name) > -1;
+    }
+
+    private function onKey(event:KeyboardEvent):void {
+        var keyCode:uint = event.keyCode;
+        if(keyCode == Keyboard.TAB){
+            event.preventDefault();
+            nextFocus(event.shiftKey);
+        }
+    }
+
+    private function nextFocus(back:Boolean = false):void {
+        if(isDateComponent(selection)){
+            back ? subFocus-- : subFocus++;
+            if(subFocus < 0){
+                mainFocus--;
+            }else if(subFocus > 2){
+                mainFocus++;
+            }else{
+                selection = selection.parent[dateComponent[subFocus]];
+            }
+        }else{
+            back ? mainFocus-- : mainFocus++;
+        }
+    }
+
+    private function focusTF(tf:TextField):void{
+        stage.focus = tf;
+        tf.setSelection(0, tf.text.length);
     }
 
     private function updateVisitsThisMonth():void {
@@ -129,110 +221,42 @@ public class ClientWindow extends BackableWindow {
             var counter:int;
             for each(d in visits) {
                 if (Utils.isDateBetween(d, r1, r2)) counter++;
-=======
-    public class ClientWindow extends CancellableWindow {
-        public var fields:Array = ['firstName','secondName','thirdName','cardId','address',
-        'phone','emergencyPhone','email','referral','info','days','visits','type','lastVisit',
-        'birth','ab_start', 'ab_end', 'freeze_start', 'freeze_end', 'reg_day', 'address',
-        'last_visit'];
-
-        public var firstName:TextField;
-        public var secondName:TextField;
-        public var thirdName:TextField;
-
-        public var cardId:TextField;
-        public var address:TextField;
-        public var phone:TextField;
-        public var emergencyPhone:TextField;
-        public var email:TextField;
-        public var referral:TextField;
-        public var info:TextField;
-
-        public var days:TextField;
-        public var visits:TextField;
-        public var type:TextField;
-        public var lastVisit:TextField;
-
-        public var birth:MovieClip;
-        public var ab_start:MovieClip;
-        public var ab_end:MovieClip;
-        public var freeze_start:MovieClip;
-        public var freeze_end:MovieClip;
-        public var reg_day:MovieClip;
-        public var last_visit:MovieClip;
-
-        private var client:ClientVO;
-        private var newClient:Boolean;
-
-
-        public function ClientWindow() {
-            super(client_window);
-            Utils.copyFields(this, view);
-            Utils.initButton(view.save, onSave);
-        }
-
-        override public function init(params:Object = null):void {
-            Utils.clearTextFields(this);
-            client = params is ClientVO ? ClientVO(params) : new ClientVO();
-            newClient = true;
-
-            if(params){
-                updateNewClientStatus(params.cardId);
-                Utils.updateTextFields(this, client.abonement);
-                updateStatusView();
->>>>>>> a895a889f8264d94d4a99ed7d7c750b120e0bdb8
             }
         }
         return counter;
     }
 
-<<<<<<< HEAD
     private function updateStatusView(showPopup:Boolean = false):void {
+        var prefix:String = String(client.cardId + ' ' + client.firstName + ' ' + client.secondName + '\n\n');
         switch (client.status) {
+            case ClientVO.FROZEN:
+                if(showPopup) wm.ShowPopup(prefix + 'Абонемент заморожен до ' + Utils.dateToString(client.abonement.freeze_end) + '!');
+                view.status.gotoAndStop(4);
+                break;
+            case ClientVO.NOT_PAYED:
+                if(showPopup) wm.ShowPopup(prefix + Utils.dateToString(client.abonement.pay_day) + " просрочен платеж!\nДолг : " + client.abonement.pay_value + " рублей.");
+                view.status.gotoAndStop(5);
+                break;
+            case ClientVO.PAY_WEEK:
+                if(showPopup) wm.ShowPopup(prefix + Utils.dateToString(client.abonement.pay_day) + " день оплаты рассрочки!\nДолг : " + client.abonement.pay_value + " рублей.");
+                view.status.gotoAndStop(5);
+                break;
             case ClientVO.OUTDATED:
-                if (showPopup) wm.ShowPopup("Абонемент просрочен!");
+                if (showPopup) wm.ShowPopup(prefix + "Абонемент просрочен!");
                 view.status.gotoAndStop(3);
                 break;
             case ClientVO.WEEK:
-                if (showPopup) wm.ShowPopup("Осталось менее недели!");
+                if (showPopup) wm.ShowPopup(prefix + "Осталось менее недели!");
                 view.status.gotoAndStop(2);
                 break;
             case ClientVO.TWO_WEEKS:
-                if (showPopup) wm.ShowPopup("Осталось менее 2 недель!");
+                if (showPopup) wm.ShowPopup(prefix + "Осталось менее 2 недель!");
                 view.status.gotoAndStop(2);
                 break;
             case ClientVO.VALID:
+            default:
                 view.status.gotoAndStop(1);
                 break;
-            default:
-                break;
-=======
-        private function updateStatusView(showPopup:Boolean = false):void {
-            switch (client.status) {
-                case ClientVO.OUTDATED:
-                    if(showPopup) wm.ShowPopup("Абонемент просрочен!");
-                    view.status.gotoAndStop(3);
-                    break;
-                case ClientVO.WEEK:
-                    if(showPopup) wm.ShowPopup("Осталось менее недели!");
-                    view.status.gotoAndStop(2);
-                    break;
-                case ClientVO.TWO_WEEKS:
-                    if(showPopup) wm.ShowPopup("Осталось менее 2 недель!");
-                    view.status.gotoAndStop(2);
-                    break;
-                case ClientVO.VALID:
-                    view.status.gotoAndStop(1);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        private function updateNewClientStatus(id:int):void{
-            newClient = id < 1 || !DataBase.getClientById(id);
-            trace("new",newClient);
->>>>>>> a895a889f8264d94d4a99ed7d7c750b120e0bdb8
         }
     }
 
@@ -241,44 +265,59 @@ public class ClientWindow extends BackableWindow {
     }
 
     private function onSave(event:MouseEvent):void {
+        var initId:uint = client.cardId;
+        var saveId:uint = uint(cardId.text);
+        if(initId > 0 && initId != saveId){
+            DataBase.instance.changeClientId(initId, saveId);
+        }
         Utils.collectTextFields(client, this);
         Utils.collectTextFields(client.abonement, this);
+        VisitManager.instance.addVisit(client.cardId, Utils.collectDate(last_visit), false);
 
-        //compatible
-//        client.abonement.type = client.dummy3;
-
-//            updateNewClientStatus(client.cardId);
-<<<<<<< HEAD
         client.updateStatus();
-//            updateStatusView(false);
 
         if (!client.valid()) {
             wm.ShowPopup("Не заполнены обязательные поля!");
             return;
         }
-=======
-            client.updateStatus();
-//            updateStatusView(false);
-
-            if (!client.valid()) {
-                wm.ShowPopup("Не заполнены обязательные поля!");
-                return;
-            }
->>>>>>> a895a889f8264d94d4a99ed7d7c750b120e0bdb8
 
         if (newClient) {
             if (DataBase.instance.addClient(client)) {
                 wm.ShowPopup("Клиент сохранен!");
             }
-<<<<<<< HEAD
         } else {
             wm.ShowPopup("Клиент обновлен!");
             DataBase.instance.updateClient(client)
-=======
-            wm.ShowPrevious();
->>>>>>> a895a889f8264d94d4a99ed7d7c750b120e0bdb8
         }
         wm.ShowPrevious();
+    }
+
+    public function get mainFocus():int {
+        return _mainFocus;
+    }
+
+    public function set mainFocus(value:int):void {
+        if(value > tab.length - 1) value = 0;
+        else if(value < 0) value = tab.length -1;
+
+        _mainFocus = value;
+
+        selection = this.view.getChildByName(tab[_mainFocus]);
+    }
+
+    public function get selection():* {
+        return _selection;
+    }
+
+    public function set selection(value:*):void {
+        if(value is MovieClip){
+            subFocus = 0;
+            _selection = value[dateComponent[subFocus]];
+        }else{
+            _selection = value;
+        }
+
+        focusTF(_selection);
     }
 }
 }
