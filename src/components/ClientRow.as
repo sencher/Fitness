@@ -34,13 +34,22 @@ public class ClientRow extends MovieClip {
         dispatchEvent(new ClientEvent(ClientEvent.SELECTED, client));
     }
 
+<<<<<<< HEAD
     public function update(client:ClientVO):void {
         if (!client || !client.cardId) {
             clear();
+=======
+        public function clear():void {
+            id.text = client_name.text = days.text = visits.text = "";
+            clearDateComponent(valid);
+            clearDateComponent(last_visit);
+            client = null;
+>>>>>>> a895a889f8264d94d4a99ed7d7c750b120e0bdb8
         }
         var clientVisits:ClientVisitsVO = VisitManager.instance.getClientVisits(client);
         this.client = client;
 
+<<<<<<< HEAD
         id.text = String(client.cardId);
         client_name.text = client.secondName + " " + client.firstName + " " + client.thirdName;
         days.text = String(clientVisits.client_stage);
@@ -60,6 +69,10 @@ public class ClientRow extends MovieClip {
                 break;
             default:
                 break;
+=======
+        private function clearDateComponent(dateComponent:MovieClip):void{
+            dateComponent.day.text = dateComponent.month.text = dateComponent.year.text = "";
+>>>>>>> a895a889f8264d94d4a99ed7d7c750b120e0bdb8
         }
     }
 
