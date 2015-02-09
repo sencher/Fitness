@@ -8,7 +8,7 @@ import flash.net.FileReference;
 import flash.text.TextField;
 import flash.text.TextFieldType;
 
-public class SaveDialog extends Sprite{
+public class SaveDialog extends Sprite {
     public function SaveDialog() {
         var MyTextField:TextField = new TextField();
         var MyButtonField:TextField = new TextField();
@@ -27,7 +27,7 @@ public class SaveDialog extends Sprite{
         addChild(MyButtonField);
         MyButtonField.addEventListener(MouseEvent.CLICK, clickhandler);
 
-        function clickhandler(e:MouseEvent): void {
+        function clickhandler(e:MouseEvent):void {
             MyFile.save(MyTextField.text);
         }
 

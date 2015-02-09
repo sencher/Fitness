@@ -2,13 +2,14 @@
  * Created by Пользователь on 16.02.14.
  */
 package test {
+import core.Config;
+
 import flash.display.Sprite;
+import flash.events.Event;
 import flash.events.KeyboardEvent;
-import flash.events.MouseEvent;
+import flash.filesystem.*;
 import flash.text.TextField;
 import flash.text.TextFieldType;
-import flash.filesystem.*;
-import flash.events.Event;
 import flash.ui.Keyboard;
 
 [SWF(height="500", width="500")]
@@ -30,8 +31,8 @@ public class WithoutDialog extends Sprite {
     }
 
     private function keyUp(e:KeyboardEvent):void {
-        if(!e.ctrlKey) return;
-        switch (e.keyCode){
+        if (!e.ctrlKey) return;
+        switch (e.keyCode) {
             case Keyboard.R:
                 read();
                 break;

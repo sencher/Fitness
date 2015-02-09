@@ -26,7 +26,7 @@ public class FileReferenceExample extends Sprite {
         dispatcher.addEventListener(ProgressEvent.PROGRESS, progressHandler);
         dispatcher.addEventListener(SecurityErrorEvent.SECURITY_ERROR, securityErrorHandler);
         dispatcher.addEventListener(Event.SELECT, selectHandler);
-        dispatcher.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA,uploadCompleteDataHandler);
+        dispatcher.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA, uploadCompleteDataHandler);
     }
 
     private function getTypes():Array {
