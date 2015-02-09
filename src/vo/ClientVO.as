@@ -79,9 +79,6 @@ public class ClientVO {
     }
 
     public function abonementString():String {
-        //compatible
-//        _abonement.type = dummy3;
-
         return cardId + Config.FIELD_DELIMITER + _abonement;
     }
 
@@ -95,11 +92,6 @@ public class ClientVO {
     }
 
     public function updateStatus():void {
-        if(Utils.isDateBetween(new Date(), _abonement.freeze_start, _abonement.freeze_end)){
-            status = FROZEN;
-            return;
-        }
-
         if(_abonement.pay_day){
             var payLeft:int = Utils.countDays(_abonement.pay_day);
             if(payLeft < 0){
@@ -114,12 +106,17 @@ public class ClientVO {
         var daysLeft:int = Utils.countDays(_abonement.ab_end);
         if (daysLeft < 0) {
             status = OUTDATED;
+            return;
         } else if (daysLeft < 7) {
             status = WEEK;
         } else if (daysLeft < 15) {
             status = TWO_WEEKS;
         } else {
             status = VALID;
+        }
+
+        if(Utils.isDateBetween(new Date(), _abonement.freeze_start, _abonement.freeze_end)){
+            status = FROZEN;
         }
     }
 }

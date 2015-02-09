@@ -1,4 +1,8 @@
 package managers {
+import core.DataBase;
+
+import flash.desktop.NativeApplication;
+
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
@@ -17,7 +21,7 @@ public class WindowManager extends Sprite {
 //        private var previousWindowClass:Class;
     private var previousWindows:Array = [];
 
-    private var currentWindow:BaseWindow;
+    public var currentWindow:BaseWindow;
     private var popup:InfoPopup;
 
     private var _windows:Hash = new Hash();
@@ -53,9 +57,8 @@ public class WindowManager extends Sprite {
             if (curWindowShowParams && curWindowShowParams[0] == window && curWindowShowParams[1] == params) return;
             previousWindows.push([window, params]);
         }
-//            _params = params;
         if (currentWindow) {
-            previousWindows[previousWindows.length - 2][1] = Utils.mergeObjects(previousWindows[previousWindows.length - 2][1], currentWindow.saveAdditionalParamsOnExit());
+            if(!backWay && previousWindows.length > 1) previousWindows[previousWindows.length - 2][1] = Utils.mergeObjects(previousWindows[previousWindows.length - 2][1], currentWindow.saveAdditionalParamsOnExit());
             currentWindow.close();
         }
         currentWindow = BaseWindow(_windows.getKey(window));
@@ -112,6 +115,12 @@ public class WindowManager extends Sprite {
     private function moveToTop(clip:DisplayObject):void {
         if (!clip || !clip.parent) return;
         clip.parent.setChildIndex(clip, clip.parent.numChildren - 1);
+    }
+
+
+    public function saveAndExit():void {
+        DataBase.instance.save();
+        NativeApplication.nativeApplication.exit();
     }
 }
 }
