@@ -3,7 +3,10 @@ import core.Config;
 
 import utils.Utils;
 
-public class VisitDayVO {
+/**
+ * Dynamic to add "cursor" param for ListWindow compatability to ReportWindow
+ */
+public dynamic class VisitDayVO {
     public var date:Date;
     public var ids:Array = [];
     public var times:Array = [];

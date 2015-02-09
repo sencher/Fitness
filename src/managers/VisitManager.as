@@ -40,7 +40,7 @@ public class VisitManager {
         return forceCreate ? new VisitDayVO(searchDay) : null;
     }
 
-    public function addVisit(cardId:uint, customDate:Date = null):void {
+    public function addVisit(cardId:uint, customDate:Date = null, showPopup:Boolean = true):void {
         var date:Date = customDate || new Date();
         var day:VisitDayVO = getDay(date);
         if (!day) {
@@ -51,7 +51,7 @@ public class VisitManager {
             })
         }
         if (day.ids.indexOf(cardId) > -1) {
-            WindowManager.instance.ShowPopup("Клиент сегодня уже был!");
+            if(showPopup) WindowManager.instance.ShowPopup("Клиент сегодня уже был!", true);
             return;
         }
         day.newVisit(cardId, new Time(date.hours, date.minutes));

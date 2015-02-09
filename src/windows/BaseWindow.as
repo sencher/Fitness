@@ -45,5 +45,9 @@ public class BaseWindow extends Sprite {
         }
         wm.ShowWindow(ReportWindow, visitDay);
     }
+
+    public function saveAdditionalParamsOnExit():Object {
+        return {};
+    }
 }
 }

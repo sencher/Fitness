@@ -47,6 +47,9 @@ public class ClientVO {
     public static const TWO_WEEKS:String = "two_weeks";
     public static const WEEK:String = "week";
     public static const OUTDATED:String = "outdated";
+    public static const NOT_PAYED:String = 'not_payed';
+    public static const PAY_WEEK:String = 'pay_week';
+    public static const FROZEN:String = 'frozen';
 
 
     public function ClientVO(params:String = null) {
@@ -92,7 +95,23 @@ public class ClientVO {
     }
 
     public function updateStatus():void {
-        var daysLeft:int = Utils.countDays(_abonement.ab_end, new Date());
+        if(Utils.isDateBetween(new Date(), _abonement.freeze_start, _abonement.freeze_end)){
+            status = FROZEN;
+            return;
+        }
+
+        if(_abonement.pay_day){
+            var payLeft:int = Utils.countDays(_abonement.pay_day);
+            if(payLeft < 0){
+                status = NOT_PAYED;
+                return;
+            }else if(payLeft < 10){
+                status = PAY_WEEK;
+                return;
+            }
+        }
+
+        var daysLeft:int = Utils.countDays(_abonement.ab_end);
         if (daysLeft < 0) {
             status = OUTDATED;
         } else if (daysLeft < 7) {

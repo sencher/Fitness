@@ -4,6 +4,7 @@ import flash.display.Sprite;
 import flash.events.Event;
 
 import utils.Hash;
+import utils.Utils;
 
 import windows.BaseWindow;
 import windows.InfoPopup;
@@ -20,7 +21,7 @@ public class WindowManager extends Sprite {
     private var popup:InfoPopup;
 
     private var _windows:Hash = new Hash();
-    private var popupShowed:Boolean;
+    public var popupShowed:Boolean;
     private var popupQueue:Vector.<String> = new Vector.<String>();
 //        private var _params:*;
     private var windowLayer:Sprite = new Sprite();
@@ -54,6 +55,7 @@ public class WindowManager extends Sprite {
         }
 //            _params = params;
         if (currentWindow) {
+            previousWindows[previousWindows.length - 2][1] = Utils.mergeObjects(previousWindows[previousWindows.length - 2][1], currentWindow.saveAdditionalParamsOnExit());
             currentWindow.close();
         }
         currentWindow = BaseWindow(_windows.getKey(window));

@@ -20,7 +20,6 @@ public class ReportWindow extends ListWindow {
     private var vm:VisitManager;
 
     public function ReportWindow() {
-        pageSize = 28;
         rowClass = ReportRow;
 
         super(report_window);
@@ -45,13 +44,16 @@ public class ReportWindow extends ListWindow {
 
         var current:Date = visitDay.date;
         calendar.updateColors(vm.getDates(), current);
-        view.date.text = current.date + " / " + (current.month + 1) + " / " + current.fullYear;
+        view.date.text = Utils.dateToString(current);
         view.clients.text = itemList.length;
         super.init(params);
     }
 
     override protected function updateRow(counter:int, i:int):void {
-        rowsView[counter].update(i + 1, DataBase.instance.getClientById(itemList[i]), visitDay.times[i]);
+        var curRow:* = rowsView[counter];
+        curRow.update(DataBase.instance.getClientById(itemList[i]));
+        curRow.num.text = String(i + 1);
+        curRow.visit_time.text = String(visitDay.times[i]);
     }
 
     private function onLeft(event:MouseEvent = null):void {
