@@ -19,7 +19,6 @@ public class SearchWindow extends BackableWindow {
         super(search_window);
         Utils.copyFields(this, view);
         Utils.initButton(view.search, onSearch);
-//            Utils.initButton(view.main_menu, onMenu);
     }
 
     override public function init(params:Object = null):void {

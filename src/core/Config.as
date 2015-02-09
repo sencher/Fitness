@@ -13,7 +13,7 @@ public class Config {
     public static const LINE_DELIMITER:String = "█";
     public static const DATE_SPECIAL:String = "½";
     public static const VERSION:String = "0.5";
-    public static const DEBUG:Boolean = false;
+    public static const DEBUG:Boolean = true;
 
     public static var saveVersion:String = "";
 }

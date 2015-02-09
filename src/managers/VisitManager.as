@@ -51,9 +51,10 @@ public class VisitManager {
             })
         }
         if (day.ids.indexOf(cardId) > -1) {
-            if(showPopup) WindowManager.instance.ShowPopup("Клиент сегодня уже был!", true);
+            if(showPopup) WindowManager.instance.ShowPopup(cardId + " Клиент сегодня уже был!", true);
             return;
         }
+        trace("new",cardId,day.date.date,day.date.month)
         day.newVisit(cardId, new Time(date.hours, date.minutes));
 
         DataBase.instance.save(Config.VISITS);
@@ -102,6 +103,16 @@ public class VisitManager {
             v.push(vd.date);
         }
         return v;
+    }
+
+    public function changeClientId(oldId:uint, newId:uint):void {
+        var id:int;
+        for each(var day:VisitDayVO in base) {
+            id = day.ids.indexOf(oldId);
+            if (id > -1) {
+                day.ids[id] = newId;
+            }
+        }
     }
 }
 }

@@ -75,6 +75,9 @@ public class DataBase {
     }
 
     public function getClientById(id:int):ClientVO {
+        if(id == -100){
+            return base[int(Math.random() * base.length)];
+        }
         var oldClient:ClientVO;
         for each (oldClient in base) {
             if (oldClient.cardId == id) {
@@ -86,17 +89,23 @@ public class DataBase {
 
     public function getClientBySecName(secName:String):ClientVO {
         var oldClient:ClientVO;
+        var curIndex:uint;
+        var minIndex:uint = uint.MAX_VALUE;
+        var minId:int;
         for each (oldClient in base) {
-            if (oldClient.secondName.toLowerCase().indexOf(secName.toLowerCase()) == 0) {
-                return oldClient;
+            curIndex = oldClient.secondName.toLowerCase().indexOf(secName.toLowerCase());
+            if (curIndex < minIndex) {
+                if(curIndex == 0) return oldClient;
+                minIndex = curIndex;
+                minId = oldClient.cardId;
             }
         }
-        return null;
+        return getClientById(minId);
     }
 
     public function save(mode:String = 'all'):void {
         try{
-            fileStream.position;
+            saveStream.position;
             wm.ShowPopup("Ошибка сохранения! Файл занят системой.", true);
             return;
         }catch (e:Error){
@@ -109,29 +118,30 @@ public class DataBase {
 
         if (mode == 'all' || mode == Config.CLIENTS) {
             initFile(Config.CLIENTS);
-            fileStream.open(file, FileMode.WRITE);
-            fileStream.writeUTFBytes(generateClientsSave(base));
-            fileStream.close();
+            saveStream = new FileStream();
+            saveStream.open(file, FileMode.WRITE);
+            saveStream.writeUTFBytes(generateClientsSave(base));
+            saveStream.close();
             wm.ShowPopup("База сохранена : " + base.length + " клиентов", true);
         }
 
         //save abonement
         if (mode == 'all' || mode == Config.ABONEMENTS) {
             initFile(Config.ABONEMENTS);
-            fileStream = new FileStream();
-            fileStream.open(file, FileMode.WRITE);
-            fileStream.writeUTFBytes(generateAbonementsSave(base));
-            fileStream.close();
+            saveStream = new FileStream();
+            saveStream.open(file, FileMode.WRITE);
+            saveStream.writeUTFBytes(generateAbonementsSave(base));
+            saveStream.close();
         }
 
         //save visits
         if (mode == 'all' || mode == Config.VISITS) {
             initFile(Config.VISITS);
-            fileStream = new FileStream();
-            fileStream.open(file, FileMode.WRITE);
-            fileStream.writeUTFBytes(VisitManager.instance.generateSave());
-            fileStream.close();
-            wm.ShowPopup("Сохранено " + VisitManager.instance.base.length + " дневных отчетов", true);
+            saveStream = new FileStream();
+            saveStream.open(file, FileMode.WRITE);
+            saveStream.writeUTFBytes(VisitManager.instance.generateSave());
+            saveStream.close();
+            //wm.ShowPopup("Сохранено " + VisitManager.instance.base.length + " дневных отчетов", true);
         }
     }
 
@@ -156,7 +166,8 @@ public class DataBase {
     }
 
     private var file:File;
-    private var fileStream:FileStream;
+    private var loadStream:FileStream;
+    private var saveStream:FileStream;
     private var currentQueueId:int = -1;
     private var loadQueue:Array = [
         [Config.CLIENTS, parse],
@@ -165,21 +176,21 @@ public class DataBase {
     ];
 
     public function load():void {
-        fileStream = new FileStream();
-        fileStream.addEventListener(ProgressEvent.PROGRESS, stream_progressHandler);
+        loadStream = new FileStream();
+        loadStream.addEventListener(ProgressEvent.PROGRESS, stream_progressHandler);
 //        fileStream.addEventListener(Event.CLOSE, stream_closeHandler);
-        fileStream.addEventListener(Event.COMPLETE, stream_completeHandler);
+        loadStream.addEventListener(Event.COMPLETE, stream_completeHandler);
         loadNextFile();
     }
 
     private function loadNextFile():void {
         currentQueueId++;
         initFile(loadQueue[currentQueueId][0]);
-        fileStream.openAsync(file, FileMode.UPDATE);
+        loadStream.openAsync(file, FileMode.UPDATE);
     }
 
     private function stream_completeHandler(event:Event):void {
-        fileStream.close();
+        loadStream.close();
         if (currentQueueId < loadQueue.length - 1) loadNextFile();
     }
 
@@ -190,7 +201,7 @@ public class DataBase {
     private function stream_progressHandler(event:ProgressEvent):void {
 //        trace("PROGRESS client " + event.bytesLoaded + " / " + event.bytesTotal);
         if (event.bytesLoaded < event.bytesTotal) return;
-        var str:String = fileStream.readMultiByte(fileStream.bytesAvailable, Config.ENCODING);
+        var str:String = loadStream.readMultiByte(loadStream.bytesAvailable, Config.ENCODING);
         loadQueue[currentQueueId][1](str);
     }
 
@@ -257,6 +268,12 @@ public class DataBase {
             }
         }
         wm.ShowPopup("Абонементов : " + arrayAb.length, true);
+    }
+
+    public function changeClientId(oldId:uint, newId:uint):void {
+        var client:ClientVO = getClientById(oldId);
+        client.cardId = newId;
+        VisitManager.instance.changeClientId(oldId, newId);
     }
 }
 }
