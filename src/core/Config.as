@@ -1,6 +1,3 @@
-/**
- * Created by Пользователь on 17.02.14.
- */
 package core {
 public class Config {
     public static const CLIENTS:String = "clients.txt";
@@ -12,7 +9,7 @@ public class Config {
     public static const FIELD_DELIMITER:String = "●";
     public static const LINE_DELIMITER:String = "█";
     public static const DATE_SPECIAL:String = "½";
-    public static const VERSION:String = "0.5";
+    public static const VERSION:String = "0.5.3";
     public static const DEBUG:Boolean = true;
 
     public static var saveVersion:String = "";
