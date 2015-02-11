@@ -1,7 +1,10 @@
 package vo {
 import core.Config;
+    import core.DataBase;
 
-import utils.Utils;
+    import managers.WindowManager;
+
+    import utils.Utils;
 
 /**
  * Dynamic to add "cursor" param for ListWindow compatability to ReportWindow
@@ -16,6 +19,10 @@ public dynamic class VisitDayVO {
     }
 
     public function newVisit(id:int, time:Time):void {
+        if(!DataBase.instance.getClientById(id)){
+            WindowManager.instance.ShowPopup("Есть визит для несуществующего клиента № " + id + "\n" + date + "\n" + time);
+            return;
+        }
         ids.push(id);
         times.push(time);
     }

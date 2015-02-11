@@ -84,6 +84,7 @@ public class DataBase {
                 return oldClient;
             }
         }
+//        wm.ShowPopup("Кто-то пытался взять несуществующего клиента : " + id);
         return null;
     }
 
@@ -146,7 +147,7 @@ public class DataBase {
     }
 
     private function generateClientsSave(vector:Vector.<ClientVO>):String {
-        var s:String = Config.VERSION + Config.LINE_DELIMITER;
+        var s:String = Config.getSaveHeader();
         var client:ClientVO;
         for each (client in vector) {
             s += client + Config.LINE_DELIMITER;
@@ -156,7 +157,7 @@ public class DataBase {
     }
 
     private function generateAbonementsSave(vector:Vector.<ClientVO>):String {
-        var s:String = Config.VERSION + Config.LINE_DELIMITER;
+        var s:String = Config.getSaveHeader();
         var client:ClientVO;
         for each (client in vector) {
             s += client.abonementString() + Config.LINE_DELIMITER;
@@ -170,7 +171,7 @@ public class DataBase {
     private var saveStream:FileStream;
     private var currentQueueId:int = -1;
     private var loadQueue:Array = [
-        [Config.CLIENTS, parse],
+        [Config.CLIENTS, parseClients],
         [Config.VISITS, parseVisits],
         [Config.ABONEMENTS, parseAbonement]
     ];
@@ -210,15 +211,19 @@ public class DataBase {
         file = file.resolvePath(path);
     }
 
-    private function parse(fileStream:String):void {
+    private function parseClients(fileStream:String):void {
         var array:Array = fileStream.split(Config.LINE_DELIMITER);
+        array.shift();// ignore save header
 
-        Config.saveVersion = array.shift();// ignore version tag
         var vector:Vector.<ClientVO> = new <ClientVO>[];
         var s:String;
         for each(s in array) {
             if (s.length) {
                 var client:ClientVO = new ClientVO(s);
+                if(client.cardId < 1){
+                    wm.ShowPopup("Неправильный формат клиента! : " + s);
+                    continue;
+                }
                 vector.push(client);
             }
         }
@@ -229,7 +234,8 @@ public class DataBase {
 
     private function parseVisits(str:String):void {
         var array:Array = str.split(Config.LINE_DELIMITER);
-        array.shift();// ignore version tag
+        array.shift();// ignore save header
+
         var visitDays:Vector.<VisitDayVO> = new <VisitDayVO>[];
         var s:String;
         for each(s in array) {
@@ -251,13 +257,19 @@ public class DataBase {
 
     private function parseAbonement(str:String):void {
         var arrayAb:Array = str.split(Config.LINE_DELIMITER);
+        arrayAb.shift();// ignore save header
 
-        arrayAb.shift();// ignore version tag
         var s:String;
+        var id:int;
         for each(s in arrayAb) {
             if (s.length) {
                 var array:Array = s.split(Config.FIELD_DELIMITER);
-                var client:ClientVO = getClientById(array.shift());
+                id = array.shift();
+                var client:ClientVO = getClientById(id);
+                if(!client){
+                    wm.ShowPopup("Ошибка! Есть абонемент, но нет клиетна № " + id);
+                    continue;
+                }
                 var ab:AbonementVO = new AbonementVO();
                 Utils.deSerialize(ab, array);
                 client.abonement = ab;
@@ -275,5 +287,9 @@ public class DataBase {
         client.cardId = newId;
         VisitManager.instance.changeClientId(oldId, newId);
     }
-}
+
+        public static function deleteClient(id:uint):void {
+
+        }
+    }
 }

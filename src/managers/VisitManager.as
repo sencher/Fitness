@@ -54,7 +54,7 @@ public class VisitManager {
             if(showPopup) WindowManager.instance.ShowPopup(cardId + " Клиент сегодня уже был!", true);
             return;
         }
-        trace("new",cardId,day.date.date,day.date.month)
+//        trace("new",cardId,day.date.date,day.date.month);
         day.newVisit(cardId, new Time(date.hours, date.minutes));
 
         DataBase.instance.save(Config.VISITS);
@@ -76,7 +76,7 @@ public class VisitManager {
     }
 
     public function generateSave():String {
-        var s:String = Config.VERSION + Config.LINE_DELIMITER;
+        var s:String = Config.getSaveHeader();
         for each (var visitDay:VisitDayVO in base) {
             s += visitDay + Config.LINE_DELIMITER;
         }

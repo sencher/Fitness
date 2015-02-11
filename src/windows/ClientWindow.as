@@ -59,12 +59,14 @@ public class ClientWindow extends BackableWindow {
     private var client:ClientVO;
     private var newClient:Boolean;
     private var calendar:Calendar = new Calendar();
+    private var initId:uint;
 
 
     public function ClientWindow() {
         super(client_window);
         Utils.copyFields(this, view);
         Utils.initButton(view.save, onSave);
+        Utils.initButton(view.delete_client, onDelete);
         Utils.initButton(view.main_menu, onMenu);
         Utils.initButton(view.visit_range_button, onRange);
         Utils.initButton(view.payed, onPayed);
@@ -75,30 +77,6 @@ public class ClientWindow extends BackableWindow {
         calendar.addEventListener(CalendarEvent.SELECTED, calendarDateSelected);
         calendar.addEventListener(CalendarEvent.REDRAW, calendarRedraw);
         addChild(calendar);
-
-//        calendar.addEventListener(MouseEvent.MOUSE_DOWN, onD)
-//        calendar.addEventListener(MouseEvent.MOUSE_UP, onU)
-//        calendar.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN, onRD)
-//        calendar.addEventListener(MouseEvent.RIGHT_MOUSE_UP, onRU)
-//        function onRU(event:MouseEvent):void {
-//            if (event.ctrlKey)
-//                calendar.scaleX = calendar.scaleY += 0.01;
-//            else
-//                calendar.scaleX = calendar.scaleY -= 0.01;
-//        }
-//
-//        function onRD(event:MouseEvent):void {
-//            wm.ShowPopup(String(calendar.scaleX), true);
-//        }
-//
-//        function onU(event:MouseEvent):void {
-//            calendar.stopDrag();
-//            wm.ShowPopup(calendar.x + " " + calendar.y, true);
-//        }
-//
-//        function onD(event:MouseEvent):void {
-//            calendar.startDrag();
-//        }
     }
 
     private function status_mouseUpHandler(event:MouseEvent):void {
@@ -132,6 +110,7 @@ public class ClientWindow extends BackableWindow {
         view.visits_month.text = '';
 
         client = params is ClientVO ? ClientVO(params) : new ClientVO();
+        initId = client.cardId;
         newClient = true;
 
         if (params) {
@@ -264,31 +243,43 @@ public class ClientWindow extends BackableWindow {
         return newClient = id < 1 || !DataBase.instance.getClientById(id);
     }
 
+    private function onDelete(event:MouseEvent):void{
+        if(!newClient)
+//            wm.showQuestionPopup("Вы уверены, что хотите удалить клиента №" + initId + "?\nЭту операцию нельзя отменить.", deleteClient);
+        wm.ShowPopup("Удаление пока не работает. Будет реализовано в следующей версии.");
+    }
+
+    private function deleteClient():void {
+        wm.ShowPopup("Клиент удален.");
+        DataBase.deleteClient(initId);
+    }
+
     private function onSave(event:MouseEvent):void {
-        var initId:uint = client.cardId;
-        var saveId:uint = uint(cardId.text);
-        if(initId > 0 && initId != saveId){
-            DataBase.instance.changeClientId(initId, saveId);
-        }
-        Utils.collectTextFields(client, this);
-        Utils.collectTextFields(client.abonement, this);
-        VisitManager.instance.addVisit(client.cardId, Utils.collectDate(last_visit), false);
+        var clientFromTF:ClientVO = new ClientVO();
+        Utils.collectTextFields(clientFromTF, this);
+        Utils.collectTextFields(clientFromTF.abonement, this);
 
-        client.updateStatus();
+        clientFromTF.updateStatus();
 
-        if (!client.valid()) {
+        if (!clientFromTF.valid()) {
             wm.ShowPopup("Не заполнены обязательные поля!");
             return;
         }
 
         if (newClient) {
-            if (DataBase.instance.addClient(client)) {
+            if (DataBase.instance.addClient(clientFromTF)) {
                 wm.ShowPopup("Клиент сохранен!");
+            }else{
+                return;
             }
         } else {
             wm.ShowPopup("Клиент обновлен!");
-            DataBase.instance.updateClient(client)
+            if(initId > 0 && initId != clientFromTF.cardId){
+                DataBase.instance.changeClientId(initId, clientFromTF.cardId);
+            }
+            DataBase.instance.updateClient(clientFromTF);
         }
+        VisitManager.instance.addVisit(clientFromTF.cardId, Utils.collectDate(last_visit), false);
         wm.ShowPrevious();
     }
 

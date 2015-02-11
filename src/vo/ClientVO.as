@@ -12,7 +12,7 @@ public class ClientVO {
     public const fields:Array = ['cardId', 'firstName', 'secondName', 'thirdName', "birth", 'address',
         'phone', 'emergencyPhone', 'email', 'referral', 'info', 'dummy1', 'dummy2', 'dummy3', 'dummy4'];
 
-    public var cardId:uint;
+    private var _cardId:uint;
     public var photo:Bitmap;
 
     public var firstName:String;
@@ -75,11 +75,11 @@ public class ClientVO {
     public function valid():Boolean {
         return firstName.length > 1 &&
                 secondName.length > 1 &&
-                cardId > 0;
+                _cardId > 0;
     }
 
     public function abonementString():String {
-        return cardId + Config.FIELD_DELIMITER + _abonement;
+        return _cardId + Config.FIELD_DELIMITER + _abonement;
     }
 
     public function get abonement():AbonementVO {
@@ -119,5 +119,13 @@ public class ClientVO {
             status = FROZEN;
         }
     }
-}
+
+        public function get cardId():uint {
+            return _cardId;
+        }
+
+        public function set cardId(value:uint):void {
+            _cardId = value;
+        }
+    }
 }

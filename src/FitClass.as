@@ -91,7 +91,7 @@ public class FitClass extends Sprite {
             } else if (keyCode == Keyboard.F9) {
                 VisitManager.instance.addVisit(int(Math.random() * 400), new Date(2014, 10, 11));
             }
-            trace(stringId);
+//            trace(stringId);
         }
 
         if (keyCode == Keyboard.ESCAPE) {

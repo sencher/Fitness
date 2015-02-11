@@ -12,7 +12,8 @@ import utils.Utils;
 
 import windows.BaseWindow;
 import windows.InfoPopup;
-import windows.StartWindow;
+    import windows.QuestionPopup;
+    import windows.StartWindow;
 
 public class WindowManager extends Sprite {
     private static var _instance:WindowManager;
@@ -26,10 +27,12 @@ public class WindowManager extends Sprite {
 
     private var _windows:Hash = new Hash();
     public var popupShowed:Boolean;
+    public var questionPopupShowed:Boolean;
     private var popupQueue:Vector.<String> = new Vector.<String>();
 //        private var _params:*;
     private var windowLayer:Sprite = new Sprite();
     private var popupLayer:Sprite = new Sprite();
+    private var qPopup:QuestionPopup;
 
     public function WindowManager() {
         if (_instance) {
@@ -84,6 +87,12 @@ public class WindowManager extends Sprite {
         ShowWindow(prevWindowShowParams[0], prevWindowShowParams[1], true);
     }
 
+        public function showQuestionPopup(message:String, okCallback:Function, cancelCallback:Function = null):void {
+            qPopup = new QuestionPopup(message, okCallback, cancelCallback);
+            popupLayer.addChild(qPopup);
+            questionPopupShowed = true;
+        }
+
     public function ShowPopup(message:String, append:Boolean = false):void {
         if (popupShowed) {
             if (append)
@@ -110,6 +119,11 @@ public class WindowManager extends Sprite {
         if (popupQueue.length) {
             ShowPopup(popupQueue.shift());
         }
+    }
+
+    public function CloseQuestionPopup(event:Event = null):void {
+        questionPopupShowed = false;
+        popupLayer.removeChild(qPopup);
     }
 
     private function moveToTop(clip:DisplayObject):void {
