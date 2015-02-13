@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="Fitness">
+  <component name="FlexBuildConfigurationManager" active="FitClass">
     <configurations>
-      <configuration name="Fitness" target-platform="Desktop" pure-as="true" main-class="FitClass" output-file="FitClass.swf" output-folder="$MODULE_DIR$/out">
+      <configuration name="FitClass" target-platform="Desktop" pure-as="true" main-class="FitClass" output-file="FitClass.swf" output-folder="$MODULE_DIR$/out">
         <dependencies target-player="16.0">
           <entries>
             <entry library-id="8b1a6a8f-3864-40ef-a7ee-b71591d5245d">

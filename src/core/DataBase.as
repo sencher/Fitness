@@ -46,10 +46,10 @@ public class DataBase {
     }
 
     public function updateClient(client:ClientVO):void {
-        var oldClient:ClientVO;
-        for each (oldClient in base) {
-            if (oldClient.cardId == client.cardId) {
-                oldClient = client;
+        var i:int;
+        for (i = 0; i< base.length; i++) {
+            if (base[i].cardId == client.cardId) {
+                base[i] = client;
                 break;
             }
         }

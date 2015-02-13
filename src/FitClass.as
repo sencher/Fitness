@@ -110,15 +110,22 @@ public class FitClass extends Sprite {
         } else {
             stringId = '';
         }
+        trace(stringId);
     }
 
     private function recognize(string:String):void {
         if (string.length >= 13) {
-            var id:String = string.substr(string.length - 4, 3);
-            var clientVO:ClientVO = DataBase.instance.getClientById(int(id)) || new ClientVO(id);
-            clientVO.scanned = true;
-            wm.ShowWindow(ClientWindow, clientVO);
+            var id:String = string.substr(string.length - 6, 5);
+            tryShowClientWindow(id);
+        }else if(Config.DEBUG && string.length > 0){
+            tryShowClientWindow(string);
         }
+    }
+
+    private function tryShowClientWindow(id:String):void {
+        var clientVO:ClientVO = DataBase.instance.getClientById(int(id)) || new ClientVO(id);
+        clientVO.scanned = true;
+        wm.ShowWindow(ClientWindow, clientVO);
     }
 }
 }

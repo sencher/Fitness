@@ -7,7 +7,7 @@ public class Config {
     public static const FIELD_DELIMITER:String = "●";
     public static const LINE_DELIMITER:String = "█";
     public static const DATE_SPECIAL:String = "½";
-    public static const VERSION:String = "11.2.15";
+    public static const VERSION:String = "13.2.15";
     public static const DEBUG:Boolean = false;
 
     public static var saveVersion:String = "";
