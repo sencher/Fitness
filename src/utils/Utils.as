@@ -275,5 +275,18 @@ public class Utils {
         }
         return main;
     }
+
+    public static function swapTextValues(message:String, params:Array):String {
+        var value:String;
+        var pattern:RegExp;
+        var i:int;
+        for (i = 0; i < params.length; i++) {
+            value = params[i];
+            pattern = /\{\d{1}\}/;
+            message = message.replace(pattern, value);
+        }
+
+        return message;
+    }
 }
 }

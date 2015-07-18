@@ -4,7 +4,7 @@ import flash.events.Event;
 import vo.ClientVO;
 
 public class ClientEvent extends Event {
-    public static const SELECTED:String = "Selected";
+    public static const SELECTED:String = "selected";
 
     public var client:ClientVO;
 

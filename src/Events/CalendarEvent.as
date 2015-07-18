@@ -2,7 +2,7 @@ package Events {
 import flash.events.Event;
 
 public class CalendarEvent extends Event {
-    public static const SELECTED:String = "Selected";
+    public static const SELECTED:String = "selected";
     public static const REDRAW:String = 'redraw';
 
     public var date:Date;

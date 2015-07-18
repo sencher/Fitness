@@ -1,8 +1,9 @@
 package managers {
+import Events.PopupEvent;
+
 import core.DataBase;
 
 import flash.desktop.NativeApplication;
-
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
@@ -12,8 +13,8 @@ import utils.Utils;
 
 import windows.BaseWindow;
 import windows.InfoPopup;
-    import windows.QuestionPopup;
-    import windows.StartWindow;
+import windows.QuestionPopup;
+import windows.StartWindow;
 
 public class WindowManager extends Sprite {
     private static var _instance:WindowManager;
@@ -33,6 +34,7 @@ public class WindowManager extends Sprite {
     private var windowLayer:Sprite = new Sprite();
     private var popupLayer:Sprite = new Sprite();
     private var qPopup:QuestionPopup;
+    private var qPopupQueue:Vector.<QuestionPopup> = new Vector.<QuestionPopup>();
 
     public function WindowManager() {
         if (_instance) {
@@ -87,11 +89,32 @@ public class WindowManager extends Sprite {
         ShowWindow(prevWindowShowParams[0], prevWindowShowParams[1], true);
     }
 
-        public function showQuestionPopup(message:String, okCallback:Function, cancelCallback:Function = null):void {
-            qPopup = new QuestionPopup(message, okCallback, cancelCallback);
-            popupLayer.addChild(qPopup);
-            questionPopupShowed = true;
+    public function showQuestionPopup(params:Object, okCallback:Function, cancelCallback:Function = null):void {
+        qPopup = new QuestionPopup(params, okCallback, cancelCallback);
+
+        if (!questionPopupShowed) {
+            showNextQPopup(qPopup);
+        } else {
+            qPopupQueue.push(qPopup);
         }
+        }
+
+    public function CloseQuestionPopup(event:Event = null):void {
+        questionPopupShowed = false;
+        var questionPopup:QuestionPopup = QuestionPopup(event.target);
+        questionPopup.removeEventListener(PopupEvent.CLOSE, CloseQuestionPopup);
+        popupLayer.removeChild(questionPopup);
+        questionPopup = null;
+        if (qPopupQueue.length) {
+            showNextQPopup(qPopupQueue.shift());
+        }
+    }
+
+    private function showNextQPopup(questionPopup:QuestionPopup):void {
+        questionPopup.addEventListener(PopupEvent.CLOSE, CloseQuestionPopup, false, 0, true);
+        popupLayer.addChild(questionPopup);
+        questionPopupShowed = true;
+    }
 
     public function ShowPopup(message:String, append:Boolean = false):void {
         if (popupShowed) {
@@ -119,11 +142,6 @@ public class WindowManager extends Sprite {
         if (popupQueue.length) {
             ShowPopup(popupQueue.shift());
         }
-    }
-
-    public function CloseQuestionPopup(event:Event = null):void {
-        questionPopupShowed = false;
-        popupLayer.removeChild(qPopup);
     }
 
     private function moveToTop(clip:DisplayObject):void {

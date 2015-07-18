@@ -1,21 +1,23 @@
 package windows {
-    import flash.display.Sprite;
-    import flash.events.MouseEvent;
+import Events.PopupEvent;
 
-    import managers.WindowManager;
+import flash.display.Sprite;
+import flash.events.MouseEvent;
 
-    import utils.Utils;
+import utils.Utils;
 
-    public class QuestionPopup extends Sprite {
+public class QuestionPopup extends Sprite {
     private var view:question_popup = new question_popup();
         private var _ok:Function;
         private var _cancel:Function;
+    private var params:Object;
 
-    public function QuestionPopup(message:String, okCallback:Function, cancelCallback:Function = null) {
+    public function QuestionPopup(params:Object, okCallback:Function = null, cancelCallback:Function = null) {
         addChild(view);
         _ok = okCallback;
+        this.params = params;
         _cancel = cancelCallback;
-        init(message);
+        init(params.message);
     }
 
     public function init(message:String):void {
@@ -25,13 +27,13 @@ package windows {
     }
 
     private function onClick(event:MouseEvent):void {
-        WindowManager.instance.CloseQuestionPopup();
-        _ok.call();
+        dispatchEvent(new PopupEvent(PopupEvent.CLOSE, true));
+        if (_ok) _ok.apply(this, [params]);
     }
 
     private function onCancel(event:MouseEvent):void {
-        WindowManager.instance.CloseQuestionPopup();
-        if(_cancel) _cancel.call();
+        dispatchEvent(new PopupEvent(PopupEvent.CLOSE, false));
+        if (_cancel) _cancel.apply(this, [params]);
     }
 
     public function append(message:String):void {

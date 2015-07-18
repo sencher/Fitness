@@ -1,9 +1,11 @@
 package Events {
-    import flash.events.Event;
+import flash.events.Event;
 
-    public class ClentEvent extends Event
+import vo.ClientVO;
+
+public class ClentEvent extends Event
     {
-        public static const SELECTED:String = "Selected";
+    public static const SELECTED:String = "selected";
 
         public var client:ClientVO;
 

@@ -19,6 +19,7 @@ public class DataBase {
     public var base:Vector.<ClientVO> = new Vector.<ClientVO>();
     private var wm:WindowManager = WindowManager.instance;
     private static var _instance:DataBase;
+    private var loading:Boolean;
 
     public function DataBase() {
         if (_instance) {
@@ -105,6 +106,9 @@ public class DataBase {
     }
 
     public function save(mode:String = 'all'):void {
+        if (loading)
+            return;
+
         try{
             saveStream.position;
             wm.ShowPopup("Ошибка сохранения! Файл занят системой.", true);
@@ -173,10 +177,17 @@ public class DataBase {
     private var loadQueue:Array = [
         [Config.CLIENTS, parseClients],
         [Config.VISITS, parseVisits],
-        [Config.ABONEMENTS, parseAbonement]
+        [Config.ABONEMENTS, parseAbonement]/*,
+         [Config.CLIENTS, parseClients, Config.MERGE1],
+         [Config.VISITS, parseVisits, Config.MERGE1],
+         [Config.ABONEMENTS, parseAbonement, Config.MERGE1],
+         [Config.CLIENTS, parseClients, Config.MERGE2],
+         [Config.VISITS, parseVisits, Config.MERGE2],
+         [Config.ABONEMENTS, parseAbonement, Config.MERGE2]*/
     ];
 
     public function load():void {
+        loading = true;
         loadStream = new FileStream();
         loadStream.addEventListener(ProgressEvent.PROGRESS, stream_progressHandler);
 //        fileStream.addEventListener(Event.CLOSE, stream_closeHandler);
@@ -186,13 +197,16 @@ public class DataBase {
 
     private function loadNextFile():void {
         currentQueueId++;
-        initFile(loadQueue[currentQueueId][0]);
+        initFile(loadQueue[currentQueueId][0], loadQueue[currentQueueId][2] || '');
         loadStream.openAsync(file, FileMode.UPDATE);
     }
 
     private function stream_completeHandler(event:Event):void {
         loadStream.close();
-        if (currentQueueId < loadQueue.length - 1) loadNextFile();
+        if (currentQueueId < loadQueue.length - 1)
+            loadNextFile();
+        else
+            loading = false;
     }
 
 //    private function stream_closeHandler(event:Event):void {
@@ -206,9 +220,9 @@ public class DataBase {
         loadQueue[currentQueueId][1](str);
     }
 
-    private function initFile(path:String):void {
+    private function initFile(path:String, customFolder:String = ''):void {
         file = File.applicationStorageDirectory;
-        file = file.resolvePath(path);
+        file = file.resolvePath(customFolder + path);
     }
 
     private function parseClients(fileStream:String):void {
@@ -228,7 +242,11 @@ public class DataBase {
             }
         }
 
-        base = vector;
+//        if(!Config.MERGE_MODE){
+//            base = vector;
+//        }else{
+        MergeTool.mergeClients(vector);
+//        }
         wm.ShowPopup("База загружена : " + base.length + " клиентов");
     }
 
@@ -251,7 +269,8 @@ public class DataBase {
             }
         }
 
-        VisitManager.instance.base = visitDays;
+//        VisitManager.instance.base = visitDays;
+        MergeTool.mergeVisits(visitDays);
         wm.ShowPopup("Дневных отчетов : " + visitDays.length, true);
     }
 
@@ -272,7 +291,8 @@ public class DataBase {
                 }
                 var ab:AbonementVO = new AbonementVO();
                 Utils.deSerialize(ab, array);
-                client.abonement = ab;
+//                client.abonement = ab;
+                MergeTool.mergeAbonements(client, ab);
 
                 //compatible
                 if(ab.last_visit)

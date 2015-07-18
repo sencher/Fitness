@@ -114,5 +114,9 @@ public class VisitManager {
             }
         }
     }
+
+    public function addVisitDay(day:VisitDayVO):void {
+        base.push(day);
+    }
 }
 }
