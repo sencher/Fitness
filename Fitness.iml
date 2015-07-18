@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="Fit">
+  <component name="FlexBuildConfigurationManager" active="FitClass">
     <configurations>
-      <configuration name="Fit" target-platform="Desktop" pure-as="true" main-class="FitClass" output-file="Fit.swf" output-folder="$MODULE_DIR$/out/production/Fit">
-        <dependencies target-player="18.0">
+      <configuration name="FitClass" target-platform="Desktop" pure-as="true" main-class="FitClass" output-file="FitClass.swf" output-folder="$MODULE_DIR$/out">
+        <dependencies target-player="16.0">
           <entries>
-            <entry library-id="374f8147-5cf9-4b0a-9485-8866a25fc3af">
+            <entry library-id="8b1a6a8f-3864-40ef-a7ee-b71591d5245d">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-id="e1a12cf2-4575-4c9e-b8b4-6fff0f2db84b">
+            <entry library-id="099951d7-d9a2-48d4-8209-c62ae687e561">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-id="97d8188e-3473-4e71-9812-1d0219908b14">
+            <entry library-id="81656054-ee25-4c41-8ca0-d13d517afeae">
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="Flex 4.6 + Air18" />
+          <sdk name="AIRSDK" />
         </dependencies>
-        <compiler-options />
-        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/out/FitClass-app.xml" package-file-name="Fit" />
+        <compiler-options>
+          <option name="resourceFilesMode" value="None" />
+        </compiler-options>
+        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$USER_HOME$/AppData/Roaming/FitClass/Local Store/FitClass-app.xml" package-file-name="Fitness" />
         <packaging-android />
         <packaging-ios />
       </configuration>
@@ -31,21 +33,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/calendar" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Flex 4.6 + Air18" jdkType="Flex SDK Type (new)" />
+    <content url="file://$USER_HOME$/AppData/Roaming/FitClass/Local Store" />
+    <orderEntry type="jdk" jdkName="AIRSDK" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library" exported="">
       <library type="flex">
-        <properties id="374f8147-5cf9-4b0a-9485-8866a25fc3af" />
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/fla/logo.swc!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library type="flex">
-        <properties id="e1a12cf2-4575-4c9e-b8b4-6fff0f2db84b" />
+        <properties id="8b1a6a8f-3864-40ef-a7ee-b71591d5245d" />
         <CLASSES>
           <root url="jar://$MODULE_DIR$/fla/design.swc!/" />
         </CLASSES>
@@ -55,7 +48,17 @@
     </orderEntry>
     <orderEntry type="module-library" exported="">
       <library type="flex">
-        <properties id="97d8188e-3473-4e71-9812-1d0219908b14" />
+        <properties id="099951d7-d9a2-48d4-8209-c62ae687e561" />
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/fla/logo.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="81656054-ee25-4c41-8ca0-d13d517afeae" />
         <CLASSES>
           <root url="jar://$MODULE_DIR$/calendar/calendar.swc!/" />
         </CLASSES>
@@ -65,3 +68,4 @@
     </orderEntry>
   </component>
 </module>
+

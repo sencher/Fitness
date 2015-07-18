@@ -9,24 +9,11 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Fit/calendar.fla" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Fit/calendar.swc" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Fit/calendar.swf" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Fit/Fit-descriptor.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/core/MergeTool.as" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Events/PopupEvent.as" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/core/Texts.as" />
+      <change type="NEW" beforePath="" afterPath="A:\Projects\Fitness\out\production\Fit\Fit-descriptor.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Fit/com/greensock/changelog.txt" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/Fit/com/greensock/easing/easing_readme.txt" />
-      <change type="DELETED" beforePath="A:\Projects\Fitness\Fitness.ipr" afterPath="" />
-      <change type="DELETED" beforePath="A:\Projects\Fitness\Fitness.iws" afterPath="" />
-      <change type="MOVED" beforePath="A:\Projects\Fitness\Fitness.iml" afterPath="$PROJECT_DIR$/Fit.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Events/CalendarEvent.as" afterPath="$PROJECT_DIR$/src/Events/CalendarEvent.as" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Events/ClentEvent.as" afterPath="$PROJECT_DIR$/src/Events/ClentEvent.as" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Events/ClientEvent.as" afterPath="$PROJECT_DIR$/src/Events/ClientEvent.as" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/Config.as" afterPath="$PROJECT_DIR$/src/core/Config.as" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/DataBase.as" afterPath="$PROJECT_DIR$/src/core/DataBase.as" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/windows/QuestionPopup.as" afterPath="$PROJECT_DIR$/src/windows/QuestionPopup.as" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/Utils.as" afterPath="$PROJECT_DIR$/src/utils/Utils.as" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/managers/VisitManager.as" afterPath="$PROJECT_DIR$/src/managers/VisitManager.as" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/managers/WindowManager.as" afterPath="$PROJECT_DIR$/src/managers/WindowManager.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Fit.iml" afterPath="$PROJECT_DIR$/Fit.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Fitness.iws" afterPath="$PROJECT_DIR$/Fitness.iws" />
     </list>
     <ignored path="Fitness.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -95,7 +82,7 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding>
-                <element signature="e#18#43#0" expanded="true" />
+                <marker date="1437249761789" expanded="true" signature="126:127" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -105,20 +92,20 @@
         <entry file="file://$PROJECT_DIR$/src/core/MergeTool.as">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-15.827586">
-              <caret line="114" column="98" selection-start-line="114" selection-start-column="98" selection-end-line="114" selection-end-column="98" />
+              <caret line="109" column="99" selection-start-line="109" selection-start-column="99" selection-end-line="109" selection-end-column="99" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#60#89#0" expanded="true" />
+                <marker date="1437249761772" expanded="true" signature="207:208" placeholder="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Config.as" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Config.as" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/core/Config.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="52" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.22767857">
+              <caret line="12" column="49" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -131,6 +118,7 @@
               <caret line="220" column="12" selection-start-line="220" selection-start-column="12" selection-end-line="220" selection-end-column="12" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <marker date="1437249761783" expanded="false" signature="238:239" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -150,9 +138,9 @@
         <entry file="file://$PROJECT_DIR$/src/core/DataBase.as">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="168" column="65" selection-start-line="168" selection-start-column="65" selection-end-line="168" selection-end-column="65" />
+              <caret line="166" column="65" selection-start-line="166" selection-start-column="65" selection-end-line="166" selection-end-column="65" />
               <folding>
-                <element signature="e#15#34#0" expanded="true" />
+                <marker date="1437249761776" expanded="true" signature="341:342" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -165,6 +153,7 @@
               <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <marker date="1437241122130" expanded="false" signature="212:213" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -174,18 +163,16 @@
         <entry file="file://$PROJECT_DIR$/src/managers/WindowManager.as">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-              <folding>
-                <element signature="e#19#44#0" expanded="true" />
-              </folding>
+              <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FitClass.as" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FitClass.as" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FitClass.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3256705">
+            <state vertical-scroll-proportion="0.0">
               <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
               <folding />
             </state>
@@ -399,9 +386,10 @@
     <property name="FullScreen" value="false" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/out/FitClass-app.xml" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -655,7 +643,7 @@
       <workItem from="1423748421782" duration="4891000" />
       <workItem from="1423832921559" duration="1521000" />
       <workItem from="1437221589908" duration="17334000" />
-      <workItem from="1437239621731" duration="9937000" />
+      <workItem from="1437239621731" duration="11127000" />
     </task>
     <task id="LOCAL-00001" summary="0.5.3 Stable + idea project">
       <created>1423566941671</created>
@@ -663,11 +651,17 @@
       <option name="project" value="LOCAL" />
       <updated>1423566941671</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="18.07.15">
+      <created>1437249764649</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1437249764649</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53650000" />
+    <option name="totallyTimeSpent" value="54840000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -683,14 +677,14 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.124200426" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.124200426" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32142857" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4047619" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4047619" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -718,7 +712,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="0.5.3 Stable + idea project" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.5.3 Stable + idea project" />
+    <MESSAGE value="18.07.15" />
+    <option name="LAST_COMMIT_MESSAGE" value="18.07.15" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -794,7 +789,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="251" column="18" selection-start-line="251" selection-start-column="18" selection-end-line="251" selection-end-column="18" />
           <folding>
-            <element signature="e#15#34#0" expanded="true" />
+            <marker date="1437249761776" expanded="true" signature="341:342" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -803,9 +798,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
-          <folding>
-            <element signature="e#21#47#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -823,7 +816,7 @@
           <caret line="43" column="17" selection-start-line="43" selection-start-column="17" selection-end-line="43" selection-end-column="17" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#60#89#0" expanded="true" />
+            <marker date="1437249761772" expanded="true" signature="207:208" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -832,9 +825,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="119" column="20" selection-start-line="119" selection-start-column="20" selection-end-line="119" selection-end-column="20" />
-          <folding>
-            <element signature="e#19#44#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -875,7 +866,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#15#34#0" expanded="true" />
+            <marker date="1437249761776" expanded="true" signature="341:342" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -894,6 +885,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1437241122130" expanded="false" signature="212:213" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -987,9 +979,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
-          <folding>
-            <element signature="e#21#47#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1055,6 +1045,7 @@
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1437241122130" expanded="false" signature="212:213" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1062,10 +1053,8 @@
     <entry file="file://$PROJECT_DIR$/src/managers/WindowManager.as">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-          <folding>
-            <element signature="e#19#44#0" expanded="true" />
-          </folding>
+          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1075,6 +1064,7 @@
           <caret line="220" column="12" selection-start-line="220" selection-start-column="12" selection-end-line="220" selection-end-column="12" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
+            <marker date="1437249761783" expanded="false" signature="238:239" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1082,10 +1072,10 @@
     <entry file="file://$PROJECT_DIR$/src/core/MergeTool.as">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.827586">
-          <caret line="114" column="98" selection-start-line="114" selection-start-column="98" selection-end-line="114" selection-end-column="98" />
+          <caret line="109" column="99" selection-start-line="109" selection-start-column="99" selection-end-line="109" selection-end-column="99" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#60#89#0" expanded="true" />
+            <marker date="1437249761772" expanded="true" signature="207:208" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1109,18 +1099,10 @@
     <entry file="file://$PROJECT_DIR$/src/core/DataBase.as">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="168" column="65" selection-start-line="168" selection-start-column="65" selection-end-line="168" selection-end-column="65" />
+          <caret line="166" column="65" selection-start-line="166" selection-start-column="65" selection-end-line="166" selection-end-column="65" />
           <folding>
-            <element signature="e#15#34#0" expanded="true" />
+            <marker date="1437249761776" expanded="true" signature="341:342" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/Config.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="52" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1129,15 +1111,23 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
-            <element signature="e#18#43#0" expanded="true" />
+            <marker date="1437249761789" expanded="true" signature="126:127" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/FitClass.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3256705">
+        <state vertical-scroll-proportion="0.0">
           <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/Config.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.22767857">
+          <caret line="12" column="49" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="49" />
           <folding />
         </state>
       </provider>
