@@ -3,7 +3,8 @@
  */
 package core {
 public class Texts {
-    public static const MERGE_MESSAGE:String = "У клиента {0} произошло задвоение данных в поле {1}. Заменить \n {2} на \n\n{3}";
+    public static const MERGE_MESSAGE:String = "РЈ РєР»РёРµРЅС‚Р° <font color='#000080'>{} {}</font> РїСЂРѕРёР·РѕС€Р»Рѕ Р·Р°РґРІРѕРµРЅРёРµ РґР°РЅРЅС‹С… РІ РїРѕР»Рµ <font color='#000080'>{}</font>. " +
+            "Р—Р°РјРµРЅРёС‚СЊ \n <font color='#dd0000'>{}</font> \nРЅР° \n<font color='#008800'>{}</font> \n?";
 
 }
 }

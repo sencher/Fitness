@@ -21,7 +21,7 @@ public class QuestionPopup extends Sprite {
     }
 
     public function init(message:String):void {
-        view.info.text = message;
+        view.info.htmlText = message;
         Utils.initButton(view.ok, onClick);
         Utils.initButton(view.cancel, onCancel);
     }

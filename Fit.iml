@@ -2,7 +2,7 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="Fit">
     <configurations>
-      <configuration name="Fit" target-platform="Desktop" pure-as="true" main-class="FitClass" output-file="Fit.swf" output-folder="$MODULE_DIR$/out/production/Fit">
+      <configuration name="Fit" target-platform="Desktop" pure-as="true" main-class="FitClass" output-file="Fit.swf" output-folder="$MODULE_DIR$/out">
         <dependencies target-player="18.0">
           <entries>
             <entry library-id="374f8147-5cf9-4b0a-9485-8866a25fc3af">
@@ -18,7 +18,7 @@
           <sdk name="Flex 4.6 + Air18" />
         </dependencies>
         <compiler-options />
-        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/out/FitClass-app.xml" package-file-name="Fit" />
+        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/FitClass-app.xml" package-file-name="Fit" />
         <packaging-android />
         <packaging-ios />
       </configuration>
