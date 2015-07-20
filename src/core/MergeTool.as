@@ -30,33 +30,22 @@ public class MergeTool {
                     addValue = addClient[field];
                     if (addValue is Date) {
                         if ((mainValue as Date).getTime() != (addValue as Date).getTime()) {
-                            askClient(addClient.cardId, field, mainValue, addValue);
+                            askFromUser(mainClient, field, mainValue, addValue, okClientCallback);
                         }
                     } else if (mainValue != addValue) {
-                        askClient(addClient.cardId, field, mainValue, addValue);
+                        askFromUser(mainClient, field, mainValue, addValue, okClientCallback);
                     }
                 }
             }
         }
     }
 
-    private static function askClient(cardId:uint, field:String, mainValue:*, addValue:*):void {
-        var s:String = "У клиента " + cardId + " произошло задвоение данных. Заменить \n" + mainValue + " на \n\n" + addValue;
-        WindowManager.instance.showQuestionPopup({
-            message: s,
-            id: cardId,
-            field: field,
-            value: addValue
-        }, okClientCallback);
-    }
-
-    private static function okClientCallback(p:*):void {
-        var client:ClientVO = DataBase.instance.getClientById(p.id);
-        client[p.field] = p.value;
+    private static function okClientCallback(p:Object):void {
+        p.client[p.field] = p.value;
     }
 
 
-    private static function okAbonementCallback(p:*):void {
+    private static function okAbonementCallback(p:Object):void {
         p.client.abonement[p.field] = p.value;
     }
 
@@ -119,23 +108,23 @@ public class MergeTool {
                                 main[field] = add[field];
                             }
                         } else {
-                            askAbonement(client, field, main[field], add[field]);
+                            askFromUser(client, field, main[field], add[field], okAbonementCallback);
                         }
                     }
                 } else if (main[field] != add[field]) {
-                    askAbonement(client, field, main[field], add[field]);
+                    askFromUser(client, field, main[field], add[field], okAbonementCallback);
                 }
             }
         }
     }
 
-    private static function askAbonement(client:ClientVO, field:String, mainValue:*, addValue:*):void {
+    private static function askFromUser(client:ClientVO, field:String, mainValue:*, addValue:*, callback:Function):void {
         WindowManager.instance.showQuestionPopup({
-            message: Utils.swapTextValues(Texts.MERGE_MESSAGE, [client.cardId, field, mainValue, addValue]),
+            message: Utils.swapTextValues(Texts.MERGE_MESSAGE, [client.cardId, client.secondName, field, mainValue, addValue]),
             client: client,
             field: field,
             value: addValue
-        }, okAbonementCallback);
+        }, callback);
     }
 }
 }

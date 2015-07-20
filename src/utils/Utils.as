@@ -282,7 +282,7 @@ public class Utils {
         var i:int;
         for (i = 0; i < params.length; i++) {
             value = params[i];
-            pattern = /\{\d{1}\}/;
+            pattern = /{}/;
             message = message.replace(pattern, value);
         }
 

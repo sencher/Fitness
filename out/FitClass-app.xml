@@ -6,7 +6,7 @@
      The last segment of the namespace specifies the version of the AIR runtime required for this application to run.
 
      minimumPatchLevel - The minimum patch level of the AIR runtime required to run the application. Optional. -->
-<application xmlns="http://ns.adobe.com/air/application/14.0">
+<application xmlns="http://ns.adobe.com/air/application/18.0">
   <!-- A universally unique application identifier. Must be unique across all AIR applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
   <id>FitClass</id>
@@ -17,11 +17,11 @@
   <!-- A string value of the format <0-999>.<0-999>.<0-999> that represents application version which can be used to check for application upgrade.
          Values can also be 1-part or 2-part. It is not necessary to have a 3-part value.
          An updated version of application must have a versionNumber value higher than the previous version. Required for namespace >= 2.5. -->
-  <versionNumber>13.2.15</versionNumber>
+  <versionNumber>20.7.15</versionNumber>
   <!-- A string value (such as "v1", "2.5", or "Alpha 1") that represents the version of the application, as it should be shown to users. Optional. -->
   <!--<versionLabel></versionLabel>-->
   <!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required for namespace < 2.5. -->
-  <!--<version>13.2.15</version>-->
+  <!-- <version>20.7.15</version> -->
   <!-- Description, displayed in the AIR application installer. May have multiple values for each language. See samples or xsd schema file. Optional. -->
   <!--<description></description>-->
   <!-- Copyright information. Optional -->
@@ -35,7 +35,7 @@
   <!-- Settings for the application's initial window. Required. -->
   <initialWindow>
     <!-- The main SWF or HTML file of the application. Required. -->
-    <content>FitClass.swf</content>
+    <content>Fit.swf</content>
     <!-- The title of the main window. Optional. -->
     <!--<title></title>-->
     <!-- The type of system chrome to use (either "standard" or "none"). Optional. Default standard. -->
@@ -158,20 +158,20 @@
   <!--</InfoAdditions>-->
   <!-- A list of plist key/value pairs to be added to the application Entitlements.plist -->
   <!--<Entitlements>
-            <![CDATA[
-            <key>keychain-access-groups</key>
-            <array>
-                <string></string>
-                <string></string>
-            </array>
-            ]]>
-        </Entitlements>-->
+        <![CDATA[
+        <key>keychain-access-groups</key>
+        <array>
+            <string></string>
+            <string></string>
+        </array>
+        ]]>
+    </Entitlements>-->
   <!-- Display Resolution for the app (either "standard" or "high"). Optional. Default "standard" -->
   <!--<requestedDisplayResolution>high</requestedDisplayResolution>-->
   <!-- Forcing Render Mode CPU for the devices mentioned. Optional  -->
   <!--<forceCPURenderModeForDevices></forceCPURenderModeForDevices> -->
   <!-- File containing line separated list of external swf paths. These swfs won't be packaged inside the application
-        and corresponding stripped swfs will be output in externalStrippedSwfs folder. -->
+    and corresponding stripped swfs will be output in externalStrippedSwfs folder. -->
   <!--<externalSwfs></externalSwfs> -->
   <!--</iPhone>-->
   <!-- Android specific tags that get passed to AndroidManifest.xml file. -->
@@ -192,13 +192,13 @@
   <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>-->
   <!--<uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch"/>-->
   <!--<application android:enabled="true">
-                    <activity android:excludeFromRecents="false">
-                        <intent-filter>
-                            <action android:name="android.intent.action.MAIN"/>
-                            <category android:name="android.intent.category.LAUNCHER"/>
-                        </intent-filter>
-                    </activity>
-                </application>-->
+        <activity android:excludeFromRecents="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>-->
   <!--</manifest>-->
   <!--]]>-->
   <!--</manifestAdditions>-->
