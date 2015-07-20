@@ -3,8 +3,8 @@ public class Config {
     public static const CLIENTS:String = "clients.txt";
     public static const ABONEMENTS:String = "abonements.txt";
     public static const MERGE_MODE:Boolean = false;
-    public static const MERGE1:String = "16_07_15/";
-    public static const MERGE2:String = "10_07_15/";
+    public static const MERGE1:String = "f/";
+    public static const MERGE2:String = "n/";
     public static const VISITS:String = "visits.txt";
     public static const ENCODING:String = "utf-8";
     public static const FIELD_DELIMITER:String = "●";

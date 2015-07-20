@@ -293,6 +293,7 @@ public class DataBase {
                 Utils.deSerialize(ab, array);
 //                client.abonement = ab;
                 MergeTool.mergeAbonements(client, ab);
+                client.updateStatus();
 
                 //compatible
                 if(ab.last_visit)
